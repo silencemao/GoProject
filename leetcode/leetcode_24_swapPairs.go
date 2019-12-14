@@ -41,18 +41,19 @@ func swapPairs(head *ListNode) *ListNode {
 
 	pre := dummy
 	cur := dummy.next
-	next := cur.next
-	for cur != nil && next != nil {
-		pre.next = next
-		cur.next = next.next
-		next.next = cur
+	if cur != nil {   // 此处要判断是否为空
+		next := cur.next
+		for cur != nil && next != nil {
+			pre.next = next
+			cur.next = next.next
+			next.next = cur
 
-		pre = cur
-		cur = cur.next
-		if cur != nil {
-			next = cur.next
+			pre = cur
+			cur = cur.next
+			if cur != nil {
+				next = cur.next
+			}
 		}
-
 	}
 	return dummy.next
 }
