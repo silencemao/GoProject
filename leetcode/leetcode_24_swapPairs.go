@@ -4,7 +4,7 @@ import "fmt"
 
 type ListNode struct {
 	value int
-	next *ListNode
+	Next *ListNode
 }
 
 func generateListNode(array []int) *ListNode {
@@ -15,17 +15,17 @@ func generateListNode(array []int) *ListNode {
 	for i := 1; i < len(array); i++ {
 		node := new(ListNode)
 		node.value = array[i]
-		tmp.next = node
-		tmp = tmp.next
+		tmp.Next = node
+		tmp = tmp.Next
 	}
 	return head
 }
 
 func printListNode(node *ListNode) {
 	tmp := node
-	for tmp.next != nil {
+	for tmp.Next != nil {
 		fmt.Print(tmp.value, " ")
-		tmp = tmp.next
+		tmp = tmp.Next
 	}
 	fmt.Println(tmp.value)
 }
@@ -37,34 +37,34 @@ func printListNode(node *ListNode) {
 func swapPairs(head *ListNode) *ListNode {
 	dummy := new(ListNode)
 	dummy.value = 0
-	dummy.next = head
+	dummy.Next = head
 
 	pre := dummy
-	cur := dummy.next
+	cur := dummy.Next
 	if cur != nil {   // 此处要判断是否为空
-		next := cur.next
+		next := cur.Next
 		for cur != nil && next != nil {
-			pre.next = next
-			cur.next = next.next
-			next.next = cur
+			pre.Next = next
+			cur.Next = next.Next
+			next.Next = cur
 
 			pre = cur
-			cur = cur.next
+			cur = cur.Next
 			if cur != nil {
-				next = cur.next
+				next = cur.Next
 			}
 		}
 	}
-	return dummy.next
+	return dummy.Next
 }
 
-func main() {
-	var array = []int{1, 2, 3, 4, 5, 6}
-	head := generateListNode(array)
-	printListNode(head)
-
-	head = swapPairs(head)
-
-	printListNode(head)
-
-}
+//func main() {
+//	var array = []int{1, 2, 3, 4, 5, 6}
+//	head := generateListNode(array)
+//	printListNode(head)
+//
+//	head = swapPairs(head)
+//
+//	printListNode(head)
+//
+//}

@@ -1,8 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
 /*
 给定数字n，生成n对括号
 */
@@ -27,10 +24,10 @@ func helper(str string, left, right, max int, result *[]string) {
 	}
 }
 
-func main() {
-	result := generateParenthesis(3)
-	for _, str := range result {
-		fmt.Println(str)
-	}
-
-}
+//func main() {
+//	result := generateParenthesis(3)
+//	for _, str := range result {
+//		fmt.Println(str)
+//	}
+//
+//}
