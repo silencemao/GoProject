@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"unicode"
 )
 // 给定字符串"A1b2" 将字符串中的字母小写变大写，大写变小写，共有多少种组合
@@ -23,14 +24,14 @@ func letterDFS(S string, index int, res *[]string) {
 		} else {
 			tmp = S
 		}
-		letterDFS(tmp, index+1, res)
+		letterDFS(tmp, index+1, res)  // 对字母进行大小写变化之后的操作
 		if unicode.IsLetter(rune(S[index])) {
 			tmp = S[:index] + string(upperLowerTransfer(S[index])) + S[index+1:]
 		} else {
 			tmp = S
 		}
 	}
-	letterDFS(S, index+1, res)
+	letterDFS(S, index+1, res)  // 对数字和大小写字母变换之后，又变换回之前的样子的操作
 }
 
 func letterCasePermutation(S string) []string {
@@ -56,7 +57,7 @@ func letterCasePermutation1(S string) []string {
 	return res
 }
 
-//func main() {
-//	S := "a1b2"
-//	fmt.Println(letterCasePermutation1(S))
-//}
+func main() {
+	S := "a1b2"
+	fmt.Println(letterCasePermutation(S))
+}
