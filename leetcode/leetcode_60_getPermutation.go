@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 )
 // 获得第k个全排列
@@ -60,7 +59,7 @@ func getPermutation1(n, k int) string{
 	return res
 }
 
-func main() {
-	fmt.Println(getPermutation(4, 6))
-	fmt.Println(getPermutation1(4, 6))
-}
+//func main() {
+//	fmt.Println(getPermutation(4, 6))
+//	fmt.Println(getPermutation1(4, 6))
+//}
