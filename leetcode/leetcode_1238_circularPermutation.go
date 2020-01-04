@@ -1,8 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
 /*
 给定一个数n和一个数start，n代表二进制数的位数，start代表第一个数。生成一个数组，
 以start开始，每个数的二进制表示与前一个数字的二进制表示只有一位不同。每个数字的二进制长度均为n
@@ -51,7 +48,7 @@ func circularPermutation1(n, start int) []int {
 	return res
 }
 
-func main() {
-	fmt.Println(circularPermutation(3, 2))
-	fmt.Println(circularPermutation1(3, 2))
-}
+//func main() {
+//	fmt.Println(circularPermutation(3, 2))
+//	fmt.Println(circularPermutation1(3, 2))
+//}
