@@ -37,8 +37,11 @@ func threeSum(nums []int) [][]int {
 func threeSum1(nums []int) [][]int {
 	sort.Ints(nums)
 	var res [][]int
-	for i := 0; i < len(nums); i++ {
-		if i > 0 && nums[i] == nums[i-1] {
+	for i := 0; i < len(nums) - 2; i++ {
+		if nums[i] > 0 {  // 排序之后，i位置的数大于0， 后面的也都大于0，直接break
+			break
+		}
+		if i > 0 && nums[i] == nums[i-1] {  // 去重
 			continue
 		}
 		left, right := i+1, len(nums) - 1
