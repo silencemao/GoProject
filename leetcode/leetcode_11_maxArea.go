@@ -37,6 +37,24 @@ func maxArea1(height []int) int {
 	return res
 }
 
+func maxArea2(height []int) int {
+	res := 0
+	left, right := 0, len(height) - 1
+	for left != right {
+		area := 0
+		if height[left] < height[right] {
+			area = (right - left) * height[left]
+			left++
+		} else {
+			area = (right - left) * height[right]
+			right--
+		}
+		if area > res {
+			res = area
+		}
+	}
+	return res
+}
 //func main() {
 //	var nums = []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
 //	fmt.Println(maxArea(nums), maxArea1(nums))
