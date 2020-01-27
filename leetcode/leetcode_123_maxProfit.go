@@ -19,6 +19,8 @@ righ=[9, 8, 8, 8, 5, 0, 0]
 分开来看，第一次交易取得最大值是9，而此时right是0
         第二次交易取得最大值是9，而此时left是0
 而第一次交易取得5，第二次交易取得8时才是两次交易总和最大的时候
+reference：
+https://www.youtube.com/watch?v=LX8i5PxRVCg
 */
 func maxProfit123(prices []int) int {
 	res := 0
