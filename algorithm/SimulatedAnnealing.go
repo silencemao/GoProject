@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
-	"time"
+	"myGoProject/algorithm/heuristic"
 )
 
 func getFuncRes(x, y float64) float64{
@@ -17,27 +17,28 @@ func SimulateAnneal() {
 	minT := 1e-8
 	iterNum := 10000
 	delta := 0.98
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(0)
 	x := rand.Float64() * 100
 	bestX := x
 	fmt.Println(bestX)
 
+	cnt := 0
 	for t > minT && iterNum >= 0 {
-		funcTmp := getFuncRes(x, 0)
 		xNew := x + rand.Float64() * 2 - 1
 		if xNew >= 0 && xNew <= 100 {
+			cnt++
 			funcNew := getFuncRes(xNew, 0)
-			if funcNew < funcTmp {
+			if funcNew < result {
 				x = xNew
 				bestX = x
 				result = funcNew
 			} else {
-				p := math.Exp(-1 * (funcNew - funcTmp) / t)
+				p := math.Exp(-1 * (funcNew - result) / t)
 				if rand.Float64() < p {
 					x = xNew
 				}
 				if p > 0 {
-					fmt.Println("prob ", p)
+					//fmt.Println("prob ", p)
 				}
 
 			}
@@ -45,9 +46,37 @@ func SimulateAnneal() {
 		iterNum--
 		t = t * delta
 	}
-	fmt.Println(bestX, result)
+	fmt.Println(bestX, result, cnt)
+}
+
+func LateAcc() {
+
+	rand.Seed(0)
+
+	bestX := rand.Float64() * 100
+	bestRes := 0.0
+
+	pLa := new(heuristic.LateAcceptance)
+	pLa.Init(200)
+
+	pIterNum := 10000
+	cnt := 0
+	for pIterNum > 0 {
+		x := bestX + rand.Float64() * 2 - 1
+		if x >= 0 && x <= 100 {
+			cnt++
+			pRes := getFuncRes(x, 0)
+			if pLa.Accept(pRes) {
+				bestX = x
+				bestRes = pRes
+			}
+		}
+		pIterNum--
+	}
+	fmt.Println(bestX, bestRes, cnt)
 }
 
 func main() {
 	SimulateAnneal()
+	LateAcc()
 }
