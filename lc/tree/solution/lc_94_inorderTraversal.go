@@ -21,7 +21,7 @@ func inOrderTraversal(root *tree.TreeNode) []int {
 	return res
 }
 
-func inOrderTraversal1(root * tree.TreeNode) []int {
+func inOrderTraversal1(root *tree.TreeNode) []int {
 	var res []int
 
 	var tNodes []tree.TreeNode
@@ -66,7 +66,7 @@ func inOrderTraversal2(root *tree.TreeNode) []int {
 
 */
 
-func main() {
+func main1() {
 	tRoot := tree.CreateTreeNode([]int{5, 4, 8, 11, tree.NilNode, 13, 4, 7, 2, tree.NilNode, tree.NilNode, tree.NilNode, tree.NilNode, tree.NilNode, 1})
 	inOrderTraversal(tRoot)
 	fmt.Println(inOrderTraversal1(tRoot))
