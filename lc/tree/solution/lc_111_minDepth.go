@@ -1,10 +1,11 @@
 package main
 
 import (
+	"GoProject/leetcode/tree"
+	"GoProject/leetcode/util"
 	"fmt"
-	"myGoProject/leetcode/tree"
-	"myGoProject/leetcode/util"
 )
+
 /*
 二叉树的最小深度，从根节点到叶子节点的最小深度
    1
@@ -12,7 +13,7 @@ import (
 最小深度为2，不是1
 */
 func minDepth(root *tree.TreeNode) int {
-	if root==nil {
+	if root == nil {
 		return 0
 	}
 	if root.Left == nil && root.Right == nil {

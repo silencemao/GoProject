@@ -1,6 +1,6 @@
 package main
 
-import "myGoProject/leetcode/tree"
+import "GoProject/leetcode/tree"
 
 func invertTree(root *tree.TreeNode) *tree.TreeNode {
 	if root != nil {

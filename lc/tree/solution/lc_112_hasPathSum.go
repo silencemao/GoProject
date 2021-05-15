@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"myGoProject/leetcode/tree"
+	"GoProject/leetcode/tree"
 )
 
 func hasPathSum(root *tree.TreeNode, sum int) bool {

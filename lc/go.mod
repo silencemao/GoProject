@@ -1,3 +1,3 @@
-module myGoProject/leetcode
+module GoProject/leetcode
 
 go 1.14

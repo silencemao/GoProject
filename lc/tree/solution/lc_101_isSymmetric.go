@@ -1,6 +1,6 @@
 package main
 
-import "myGoProject/leetcode/tree"
+import "GoProject/leetcode/tree"
 
 
 func symmetricHelper(l, r *tree.TreeNode) bool {

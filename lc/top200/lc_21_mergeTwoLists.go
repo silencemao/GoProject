@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	_struct "myGoProject/leetcode/struct"
+	_struct "GoProject/leetcode/struct"
 )
 
 func main() {

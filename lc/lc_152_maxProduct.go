@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"myGoProject/leetcode/util"
+	"GoProject/leetcode/util"
 )
 /*
 连续子数组的最大乘积，和第53题连续子数组的最大和一样

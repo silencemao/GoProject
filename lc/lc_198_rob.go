@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"myGoProject/leetcode/util"
+	"GoProject/leetcode/util"
 )
 /*
 打劫能获得的最多钱数

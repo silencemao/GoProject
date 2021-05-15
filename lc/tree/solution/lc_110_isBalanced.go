@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
-	"myGoProject/leetcode/tree"
+	"GoProject/leetcode/tree"
 )
 
 func dfsHelper(tRoot *tree.TreeNode) int {

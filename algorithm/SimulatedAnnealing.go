@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
-	"myGoProject/algorithm/heuristic"
+	"GoProject/algorithm/heuristic"
 )
 
 func getFuncRes(x, y float64) float64{

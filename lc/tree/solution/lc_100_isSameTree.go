@@ -1,6 +1,6 @@
 package main
 
-import "myGoProject/leetcode/tree"
+import "GoProject/leetcode/tree"
 
 func isSameTree(p, q *tree.TreeNode) bool {
 	if p==nil && q==nil {

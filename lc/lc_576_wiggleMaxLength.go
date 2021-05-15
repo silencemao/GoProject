@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"myGoProject/leetcode/util"
+	"GoProject/leetcode/util"
 )
 
 func wiggleMaxLength(nums []int) int {

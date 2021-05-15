@@ -1,8 +1,8 @@
 package main
 
 import (
+	"GoProject/leetcode/tree"
 	"fmt"
-	"myGoProject/leetcode/tree"
 )
 
 func inOrderHelper(pRoot *tree.TreeNode, pNums *[]int) {

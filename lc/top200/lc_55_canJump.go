@@ -1,8 +1,8 @@
 package main
 
 import (
+	"GoProject/leetcode/util"
 	"fmt"
-	"myGoProject/leetcode/util"
 )
 
 func canJump(nums []int) bool {

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"myGoProject/leetcode/util"
+	"GoProject/leetcode/util"
 )
 /*
 最长上升子序列的长度，数组中的数值逐渐上升的子序列的长度，不要求连续

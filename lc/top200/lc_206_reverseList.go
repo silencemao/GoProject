@@ -1,7 +1,7 @@
 package main
 
 import (
-	_struct "myGoProject/leetcode/struct"
+	_struct "GoProject/leetcode/struct"
 )
 
 func reverseList(head *_struct.ListNode) *_struct.ListNode {

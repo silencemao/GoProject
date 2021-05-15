@@ -2,7 +2,7 @@ package main
 
 import (
 	"container/heap"
-	_struct "myGoProject/leetcode/struct"
+	_struct "GoProject/leetcode/struct"
 	"sort"
 )
 

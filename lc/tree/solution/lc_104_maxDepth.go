@@ -2,7 +2,7 @@ package main
 
 import (
 	"math"
-	"myGoProject/leetcode/tree"
+	"GoProject/leetcode/tree"
 )
 
 func maxDepth(root *tree.TreeNode) int {

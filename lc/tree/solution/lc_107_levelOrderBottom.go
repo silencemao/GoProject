@@ -1,6 +1,6 @@
 package main
 
-import "myGoProject/leetcode/tree"
+import "GoProject/leetcode/tree"
 
 func levelOrderBottom(root *tree.TreeNode) [][]int {
     return tree.LevelOrderBottom1(root)
