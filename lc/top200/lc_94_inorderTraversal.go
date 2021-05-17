@@ -113,7 +113,7 @@ func postOrderTraversal(root *tree.TreeNode) []int {
 	return res
 }
 
-func main() {
+func main1() {
 	root := &tree.TreeNode{
 		Val: 1,
 		Left: &tree.TreeNode{
