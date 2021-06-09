@@ -34,13 +34,19 @@ func getCount(nums [][]int, mid int) int {
 	return cnt
 }
 
+/*
+给定二维数组，第k大的数字如何计算
+将第k大转换为
+第n*n-k+1小的数字
+*/
+
 func main() {
 	nums := [][]int{
 		{1, 5, 9},
 		{10, 11, 13},
 		{12, 13, 15},
 	}
-	k := 8
+	k := 7
 	fmt.Println(kthSmallest(nums, k))
 }
 
