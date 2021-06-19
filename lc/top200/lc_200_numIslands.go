@@ -19,6 +19,8 @@ import "fmt"
 1、找到一个岛屿 （grid[i][j]=1）
 2、四周扩散 （上下左右）
 3、标记（1->2 下次碰到就不重复计数了）
+
+同695
 */
 func isIsland(grid [][]byte, i, j int) {
 	if i >= 0 && i < len(grid) && j >= 0 && j < len(grid[0]) {
