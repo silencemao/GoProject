@@ -12,6 +12,7 @@ import "fmt"
 请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
 https://leetcode-cn.com/problems/course-schedule
 
+结合210题
 */
 func canFinish(numCourses int, prerequisites [][]int) bool {
 	courses := make([]int, numCourses)
@@ -29,7 +30,7 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 		}
 	}
 
-	for len(queue) > 0 {
+	for len(queue) > 0 { // 此处用队列是精髓
 		first := queue[0]
 		queue = queue[1:]
 
