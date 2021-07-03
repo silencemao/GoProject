@@ -8,6 +8,7 @@ import (
 单词拆分 输出所有拆分后的结果
 
 递归求解
+同139
 */
 func wordBreakII(s string, wordDict []string) []string {
 	m := make(map[string][]string)
@@ -19,7 +20,7 @@ func helper140(m map[string][]string, s string, wordDict []string) []string {
 	}
 	res := []string{}
 	if len(s) == 0 {
-		return []string{""}
+		return []string{""} // 此处必须是返回一个非空的字符串数组，否则在第30行遍历返回值时无法进入循环
 	}
 
 	for _, word := range wordDict {
