@@ -109,6 +109,7 @@ func canCompleteCircuit2(gas []int, cost []int) int {
 	return res
 }
 
+// https://leetcode-cn.com/problems/gas-station/solution/gong-shui-san-xie-noxiang-xin-ke-xue-xi-zsgqp/
 func canCompleteCircuit3(gas []int, cost []int) int {
 	res := -1
 	n := len(gas)
