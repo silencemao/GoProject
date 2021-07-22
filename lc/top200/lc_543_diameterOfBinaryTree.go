@@ -25,7 +25,7 @@ func diameterOfBinaryTree(root *tree.TreeNode) int {
 	if root != nil {
 		depthHelp543(root, &res)
 	}
-	return res
+	return res - 1
 }
 
 func main() {
