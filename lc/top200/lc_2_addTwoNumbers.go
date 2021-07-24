@@ -15,14 +15,8 @@ func addTwoNumbers(l, r *Node) *Node {
 	tail := head
 	a, b, sum := 0, 0, 0
 	for l != nil && r != nil {
-		if l != nil {
-			a = l.val
-			l = l.next
-		}
-		if r != nil {
-			b = r.val
-			r = r.next
-		}
+		a, b = l.val, r.val
+		l, r = l.next, r.next
 		sum = a + b + carry
 		carry = sum / 10
 		head.next = &Node{val: sum % 10}
@@ -32,15 +26,15 @@ func addTwoNumbers(l, r *Node) *Node {
 		a = l.val
 		sum = a + carry
 		head.next = &Node{val: sum % 10}
-		carry = sum % 10
-		l = l.next
+		carry = sum / 10
+		l, head = l.next, head.next
 	}
 	for r != nil {
 		a = r.val
 		sum = a + carry
 		head.next = &Node{val: sum % 10}
 		carry = sum / 10
-		r = r.next
+		r, head = r.next, head.next
 	}
 	if carry != 0 {
 		head.next = &Node{val: carry}
