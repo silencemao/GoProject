@@ -32,9 +32,30 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	}
 }
 
+func find1(nums1, nums2 []int) float64 {
+	prev, cur := 0, 0
+	m, n := len(nums1), len(nums2)
+	k := m + n
+	i, j, k := 0, 0, 0
+	for ; k < (m+n)/2; k++ {
+		prev = cur
+		if i < m && (nums1[i] < nums2[j] || j >= n) {
+			cur = nums1[i]
+			i++
+		} else {
+			cur = nums2[j]
+			j++
+		}
+	}
+	if (m+n)&1 == 1 {
+		return float64(m+n) / 2.0
+	}
+	return float64(prev)
+}
+
 func main() {
 	nums1 := []int{1, 3}
-	nums2 := []int{2}
+	nums2 := []int{2, 4, 6, 7}
 	fmt.Println(findMedianSortedArrays(nums1, nums2))
 
 }
