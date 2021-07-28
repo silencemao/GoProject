@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"GoProject/leetcode/util"
+	"fmt"
+)
 
 // 无重复字符的最长子串
 func lengthOfLongestSubstring(s string) int {
@@ -26,7 +29,27 @@ func lengthOfLongestSubstring(s string) int {
 	return maxLength
 }
 
+/*
+滑动窗口
+*/
+func lengthOfLongestSubstring1(s string) int {
+	res, l := 0, 0
+	window := make(map[byte]int, 128)
+	for r := 0; r < len(s); r++ {
+		window[s[r]]++
+
+		for window[s[r]] > 1 {
+			window[s[l]]--
+			l++
+		}
+		res = util.MaxInt(res, r-l+1)
+	}
+
+	return res
+}
+
 func main() {
 	s := "abcabcbb"
 	fmt.Println(lengthOfLongestSubstring(s))
+	fmt.Println(lengthOfLongestSubstring1(s))
 }
