@@ -28,8 +28,38 @@ func minDepth(root *tree.TreeNode) int {
 	}
 }
 
+func minDepth1(root *tree.TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	depth := 1
+	var queue []*tree.TreeNode
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		sz := len(queue)
+		for i := 0; i < sz; i++ {
+			cur := queue[0]
+			queue = queue[1:]
+			if cur.Left == nil && cur.Right == nil {
+				return depth
+			}
+
+			if cur.Left != nil {
+				queue = append(queue, cur.Left)
+			}
+			if cur.Right != nil {
+				queue = append(queue, cur.Right)
+			}
+		}
+		depth++
+	}
+
+	return depth
+}
+
 func main() {
 	tRoot := tree.CreateTreeNode([]int{1, 2, 3, 4, 5})
 	tree.LevelOrder(tRoot)
 	fmt.Println(minDepth(tRoot))
+	fmt.Println(minDepth1(tRoot))
 }
