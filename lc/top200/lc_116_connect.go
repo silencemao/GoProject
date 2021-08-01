@@ -22,7 +22,7 @@ func connect(root *tree.TreeNode) *tree.TreeNode {
 		if queue[0].Left != nil {
 			queue = append(queue, queue[0].Left)
 		}
-		if queue[1].Right != nil {
+		if queue[0].Right != nil {
 			queue = append(queue, queue[0].Right)
 		}
 		for i := 1; i < sz; i++ {
