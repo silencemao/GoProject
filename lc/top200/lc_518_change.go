@@ -25,7 +25,7 @@ func change(amount int, coins []int) int {
 	}
 
 	//for i := 1; i <= amount; i++ {
-	//	for j := 0; j < len(coins); j++ {  // 会产生重复结果
+	//	for j := 0; j < len(coins); j++ {  // 会产生重复结果 3 [1, 1, 1] [1, 2] [2, 1]
 	//		if coins[j] <= i {
 	//			dp[i] += dp[i-coins[i]]
 	//		} else {
