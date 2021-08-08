@@ -8,6 +8,7 @@ import "fmt"
 题目数据保证答案符合 32 位整数范围。
 
 完全背包问题
+请注意，顺序不同的序列被视作不同的组合。(求排列)
 */
 func combinationSum4(nums []int, target int) int {
 	dp := make([]int, target+1)
@@ -20,6 +21,18 @@ func combinationSum4(nums []int, target int) int {
 		}
 	}
 
+	return dp[target]
+}
+
+// 求组合个数 和题意不同 518题也是求组合
+func combinationSum42(nums []int, target int) int {
+	dp := make([]int, target+1)
+	dp[0] = 1
+	for _, num := range nums {
+		for i := num; i <= target; i++ {
+			dp[i] += dp[i-num]
+		}
+	}
 	return dp[target]
 }
 
@@ -51,5 +64,6 @@ func main() {
 	nums := []int{1, 2, 3}
 	target := 4
 	fmt.Println(combinationSum4(nums, target))
-	fmt.Println(combinationSum4_2(nums, target))
+	fmt.Println(combinationSum42(nums, target))
+	//fmt.Println(combinationSum4_2(nums, target))
 }
