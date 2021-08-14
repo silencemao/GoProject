@@ -15,7 +15,7 @@ https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence
 
 */
 
-// 这种写法不对，不是连续子数组 nums = [1, 3, 5, 4, 7] 会返回4(1 3 5 7) 5和7之间有4间隔着，不满足题意
+// 这种写法不对，不是连续子数组 nums = [1, 3, 5, 4, 7] 会返回4(1 3 5 7) 5和7之间有4间隔着，不满足题意 适用于300题
 func findLengthOfLCIS(nums []int) int {
 	n, res := len(nums), 0
 	if n < 2 {
@@ -25,13 +25,9 @@ func findLengthOfLCIS(nums []int) int {
 	dp[0] = 1
 	for i := 1; i < n; i++ {
 		dp[i] = 1
-		for j := i - 1; j >= 0; j-- {
+		for j := 0; j < i; j++ {
 			if nums[i] > nums[j] {
-				dp[i] = util.MaxInt(dp[j]+1, dp[i])
-			} else if nums[i] == nums[j] {
-				dp[i] = util.MaxInt(dp[j], dp[i])
-			} else {
-				// 继续向前走
+				dp[i] = util.MaxInt(dp[i], dp[j]+1)
 			}
 		}
 		res = util.MaxInt(res, dp[i])
