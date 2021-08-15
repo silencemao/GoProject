@@ -8,6 +8,7 @@ import "fmt"
 一个邻接矩阵matrix，矩阵matrix[i][j] >=0 表示点i-j之间有邻接关系，<0 表示没有关系
 根据邻接矩阵的关系，返回最大匹配值，即有几条边可以连接两个集合中的点，每个点只归属于一条边
 https://blog.csdn.net/dark_scope/article/details/8880547
+https://zhuanlan.zhihu.com/p/62981901
 */
 
 func match_hungarian(i, n int, vis []bool, p []int, matrix [][]int) bool {
