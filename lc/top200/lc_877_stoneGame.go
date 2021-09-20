@@ -23,14 +23,14 @@ func stoneGame(piles []int) bool {
 
 func stoneGame2(piles []int) bool {
 	size := len(piles)
-	dp := make([][]int, size)
+	dp := make([][]int, size) // dp[i][j]存储的是两人的差值
 	for i := range dp {
 		dp[i] = make([]int, size)
-		dp[i][i] = piles[i]
+		dp[i][i] = piles[i] // 每个位置只能一个人拿，任何人拿走i==j的位置，两人的差距就是piles[i]
 	}
 	for i := size - 2; i >= 0; i-- {
 		for j := i + 1; j < size; j++ {
-			dp[i][j] = util.MaxInt(piles[i]-dp[i+1][j], piles[j]-dp[i][j-1])
+			dp[i][j] = util.MaxInt(piles[i]-dp[i+1][j], piles[j]-dp[i][j-1]) // i，j表示剩余石头的边界，只能取其中一个，取了之后和已有的差值比较
 		}
 	}
 	return dp[0][size-1] > 0
