@@ -49,6 +49,21 @@ func rob1(nums []int) int {
 	return res
 }
 
+func rob2(nums []int) int {
+	size := len(nums)
+	if size == 1 {
+		return nums[0]
+	}
+	if size == 2 {
+		return util.MaxInt(nums[0], nums[1])
+	}
+	first, second := nums[0], util.MaxInt(nums[0], nums[1])
+	for i := 2; i < len(nums); i++ {
+		first, second = second, util.MaxInt(first+nums[i], second)
+	}
+	return second
+}
+
 func main() {
 	nums := []int{2, 7, 9, 3, 1, 7, 6, 8, 3, 10, 3}
 	fmt.Println(rob(nums))
