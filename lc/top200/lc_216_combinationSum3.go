@@ -4,6 +4,7 @@ import "fmt"
 
 /*
 从1-9中选出k个数，其和为n，返回这些组合，每个组合中不能使用重复的数字
+就是在[1,2,3,4,5,6,7,8,9]这个集合中找到和为n的k个数的组合。
 */
 
 func help216(res *[][]int, tmp []int, k, n, ind, sum int) {
@@ -11,6 +12,7 @@ func help216(res *[][]int, tmp []int, k, n, ind, sum int) {
 		if sum == n { // 控制求和
 			*res = append(*res, append([]int{}, tmp...))
 		}
+		return
 	}
 
 	for i := ind; i <= 9 && sum+i <= n; i++ {

@@ -63,8 +63,38 @@ func letterCombinations1(digits string) []string {
 	return res
 }
 
+func help17(res *[]string, digits, tmp string, ind int, letters map[int]string) {
+	if ind >= len(digits) {
+		*res = append(*res, tmp)
+		return // 必须有这个return 否则 ind > len(digits)时，再从digits中取数会越界
+	}
+
+	digit := letters[int(digits[ind]-'0')]
+	for i := 0; i < len(digit); i++ {
+		tmp += string(digit[i])
+		help17(res, digits, tmp, ind+1, letters)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
+
+func letterCombinations2(digits string) []string {
+	var res []string
+	letters := make(map[int]string)
+	letters[2] = "abc"
+	letters[3] = "def"
+	letters[4] = "ghi"
+	letters[5] = "jkl"
+	letters[6] = "mno"
+	letters[7] = "pqrs"
+	letters[8] = "tuv"
+	letters[9] = "wxyz"
+	help17(&res, digits, "", 0, letters)
+	return res
+}
+
 func main() {
 	digits := "23"
 	fmt.Println(letterCombinations(digits))
 	fmt.Println(letterCombinations1(digits))
+	fmt.Println(letterCombinations2(digits))
 }
