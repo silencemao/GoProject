@@ -33,7 +33,25 @@ func subsets1(nums []int) (ans [][]int) {
 	return
 }
 
+func help78(res *[][]int, tmp, nums []int, ind int) {
+	*res = append(*res, append([]int{}, tmp...)) // 每个组合都保留
+	if ind >= len(nums) {
+		return
+	}
+	for i := ind; i < len(nums); i++ {
+		tmp = append(tmp, nums[i])
+		help78(res, tmp, nums, i+1) // 从下一个位置取数，不重复
+		tmp = tmp[:len(tmp)-1]
+	}
+}
+
+func subsets2(nums []int) [][]int {
+	var res [][]int
+	help78(&res, []int{}, nums, 0)
+	return res
+}
+
 func main() {
-	nums := []int{1, 2, 3, 4, 5}
-	fmt.Println(subsets1(nums))
+	nums := []int{1, 2, 3}
+	fmt.Println(subsets2(nums))
 }
