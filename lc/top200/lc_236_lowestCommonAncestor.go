@@ -12,7 +12,7 @@ import (
 满足 x 是 p、q 的祖先且 x 的深度尽可能大,一个节点也可以是它自己的祖先
 https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree
 
-设节点 root 为节点 p, qp,q 的某公共祖先，若其左子节点 root.left 和右子节点 root.right 都不是 p,q的公共祖先，则称 root 是 最近的公共祖先。
+设节点 root 为节点 p,q 的某公共祖先，若其左子节点 root.left 和右子节点 root.right 都不是 p,q的公共祖先，则称 root 是 最近的公共祖先。
 
 递归的遍历左右子树，返回值分别即为left， right。left表示左子树中可以作为p、q其中一个或两个祖先的一个节点，right同理。
 若left right都不为空，表示left、right分别为p、q各自的祖先，则left、right的父节点是p、q的公共祖先
