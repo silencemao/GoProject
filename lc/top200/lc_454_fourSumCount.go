@@ -31,10 +31,43 @@ func fourSumCount(nums1 []int, nums2 []int, nums3 []int, nums4 []int) int {
 	return res
 }
 
+func fourSumCount1(nums1 []int, nums2 []int, nums3 []int, nums4 []int) {
+	set := make(map[int][]int, 0)
+	for i1, v1 := range nums1 {
+		for i2, v2 := range nums2 {
+			sum := v1 + v2
+			if tmp, ok := set[sum]; ok {
+				tmp[0] += 1
+				tmp = append(tmp, []int{i1, i2}...)
+				//set[sum] = tmp
+			} else {
+				tmp = append(tmp, 1)
+				tmp = append(tmp, []int{i1, i2}...)
+				set[sum] = tmp
+			}
+		}
+	}
+
+	res := make([][]int, 0)
+	for i3, v3 := range nums3 {
+		for i4, v4 := range nums4 {
+			sum := v3 + v4
+			if tmp, ok := set[-sum]; ok {
+				for i := 0; i < tmp[0]; i++ {
+					res = append(res, []int{tmp[i*2], tmp[i*2+1], i3, i4})
+				}
+			}
+		}
+	}
+	fmt.Println(res)
+
+}
+
 func main() {
 	A := []int{1, 2}
 	B := []int{-2, -1}
 	C := []int{-1, 2}
 	D := []int{0, 2}
 	fmt.Println(fourSumCount(A, B, C, D))
+	fourSumCount1(A, B, C, D)
 }
