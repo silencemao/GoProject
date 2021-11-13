@@ -36,6 +36,21 @@ func isHappy(n int) bool {
 
 	return help202(n, m)
 }
+func getNum(n int) int {
+	tmp := 0
+	for n > 0 {
+		tmp += (n%10) * (n%10)
+		n /= 10
+	}
+	return tmp
+}
+func isHappy2(n int) bool {
+	set := make(map[int]bool, 0)
+	for n != 1 && !set[n] {
+		n, set[n] = getNum(n), true
+	}
+	return n==1
+}
 
 // 还有一种做法 类似检测链表是否有环 快慢指针
 
