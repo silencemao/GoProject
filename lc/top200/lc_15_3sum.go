@@ -45,7 +45,41 @@ func threeSum(nums []int) [][]int {
 	return res
 }
 
+func threeSum1(nums []int) [][]int {
+	var res [][]int
+	sort.Ints(nums)
+
+	for i, num := range nums {
+		if num > 0 {
+			break
+		}
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		l, r := i+1, len(nums)-1
+		for l < r {
+			sum := nums[l] + nums[r] + num
+			if sum > 0 {
+				r--
+			} else if sum < 0 {
+				l++
+			} else {
+				res = append(res, []int{num, nums[l], nums[r]})
+				for l < r && nums[l] == nums[l+1] {
+					l++
+				}
+				for l < r && nums[r] == nums[r-1] {
+					r--
+				}
+				l++
+				r--
+			}
+		}
+	}
+	return res
+}
+
 func main() {
 	nums := []int{0, 0, 0, 0, 0}
-	fmt.Println(threeSum(nums))
+	fmt.Println(threeSum1(nums))
 }
