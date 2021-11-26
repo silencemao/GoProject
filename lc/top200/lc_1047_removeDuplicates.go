@@ -15,7 +15,7 @@ import (
 例如，在 "abbaca" 中，我们可以删除 "bb" 由于两字母相邻且相同，这是此时唯一可以执行删除操作的重复项。之后我们得到字符串 "aaca"，
 其中又只有 "aa" 可以执行重复项删除操作，所以最后的字符串为 "ca"。
 */
-func removeDuplicates1047(s string) string {
+func removeDuplicates1047(s string) string { // 结果对，方法不好
 	var stack []byte
 	bs := []byte(s)
 	for i := range bs {
@@ -40,7 +40,25 @@ func removeDuplicates1047(s string) string {
 	}
 	return string(stack)
 }
+
+func removeDuplicates2(s string) string {
+	var stack []byte
+	for i := 0; i < len(s); i++ {
+		// 栈不空 且 与栈顶元素不等
+		if len(stack) > 0 && stack[len(stack)-1] == s[i] {
+			// 弹出栈顶元素 并 忽略当前元素(s[i])
+			stack = stack[:len(stack)-1]
+		} else {
+			// 入栈
+			stack = append(stack, s[i])
+		}
+	}
+	return string(stack)
+}
+
 func main() {
-	s := "aa"
+	s := "aaa"
+	fmt.Println(removeDuplicates2(s))
+
 	fmt.Println(removeDuplicates1047(s))
 }
