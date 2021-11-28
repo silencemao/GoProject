@@ -33,8 +33,64 @@ func maxSlidingWindow1(nums []int, k int) []int {
 	return res
 }
 
+func maxSlidingWindow2(nums []int, k int) []int {
+	var res, queue []int
+	for i := 0; i < len(nums); i++ {
+		if len(queue) > 0 && i-queue[0] >= k { // 队列里面始终位置i-k+1到i之间元素的索引
+			queue = queue[1:]
+		}
+		for len(queue) > 0 && nums[queue[len(queue)-1]] < nums[i] { // 删除i-k+1到i之间比nums[i]小的数字的索引
+			queue = queue[:len(queue)-1]
+		}
+		queue = append(queue, i)
+		if i >= k-1 {
+			res = append(res, nums[queue[0]])
+		}
+	}
+	return res
+}
+
+/*
+滑动窗口内最小的值
+*/
+func minSlidingWindow2(nums []int, k int) []int {
+	var res, queue []int
+
+	for i := 0; i < len(nums); i++ {
+		if len(queue) > 0 && i-queue[0] >= k {
+			queue = queue[1:]
+		}
+		for len(queue) > 0 && nums[queue[len(queue)-1]] >= nums[i] {
+			queue = queue[:len(queue)-1]
+		}
+		queue = append(queue, i)
+		if i+1 >= k {
+			res = append(res, nums[queue[0]])
+		}
+	}
+
+	return res
+}
+
+func minSlidingWindow3(nums []int, k int) []int {
+	var res []int
+	for i := 0; i <= len(nums)-k; i++ {
+		tmp := 1<<31 - 1
+		for j := i; j < i+k; j++ {
+			if nums[j] < tmp {
+				tmp = nums[j]
+			}
+		}
+		res = append(res, tmp)
+	}
+	return res
+}
+
 func main() {
-	nums := []int{7, 2, 4}
+	nums := []int{7, 4, 5, 1, 2, 3, 7, 8}
 	k := 2
-	fmt.Println(maxSlidingWindow1(nums, k))
+	//fmt.Println(maxSlidingWindow1(nums, k))
+	//fmt.Println(maxSlidingWindow2(nums, k))
+	fmt.Println(minSlidingWindow2(nums, k))
+	fmt.Println(minSlidingWindow3(nums, k))
 }
