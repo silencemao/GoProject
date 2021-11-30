@@ -55,6 +55,24 @@ func inOrderTraversal2(root *tree.TreeNode) []int {
 	return res
 }
 
+func inOrderTraversal3(root *tree.TreeNode) []int {
+	var res []int
+	var stack []*tree.TreeNode
+
+	for root != nil || len(stack) > 0 {
+		if root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		} else {
+			top := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			res = append(res, top.Val)
+			root = top.Right
+		}
+	}
+	return res
+}
+
 /*
       5
      / \
