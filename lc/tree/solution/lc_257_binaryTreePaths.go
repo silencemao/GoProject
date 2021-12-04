@@ -24,6 +24,25 @@ func help257(root *tree.TreeNode, res *[]string, tmp []string) {
 	tmp = tmp[:len(tmp)-1]        // 此处手动去除最后一个值，也就是去除倒数第二层节点的值，回退到倒数第三层
 }
 
+func help2571(root *tree.TreeNode, res *[]string, tmp []string) {
+	if root == nil {
+		return
+	}
+	tmp = append(tmp, strconv.Itoa(root.Val))
+	if root.Left == nil && root.Right == nil {
+		*res = append(*res, strings.Join(tmp, "->"))
+		return
+	}
+	if root.Left != nil {
+		help2571(root.Left, res, tmp)
+		tmp = tmp[:len(tmp)-1]
+	}
+	if root.Right != nil {
+		help2571(root.Right, res, tmp)
+		tmp = tmp[:len(tmp)-1]
+	}
+}
+
 func binaryTreePaths(root *tree.TreeNode) []string {
 	var res []string
 	help257(root, &res, []string{})
