@@ -31,6 +31,34 @@ func binaryTreePaths(root *tree.TreeNode) []string {
 }
 
 /*
+前序遍历
+*/
+func binaryTreePaths1(root *tree.TreeNode) []string {
+	var res []string
+	stack := []*tree.TreeNode{root}
+	stack1 := []string{strconv.Itoa(root.Val)}
+	for len(stack) > 0 {
+		top := stack[0]
+		stack = stack[1:]
+
+		tmp := stack1[0]
+		stack1 = stack1[1:]
+		if top.Left == nil && top.Right == nil {
+			res = append(res, tmp)
+		}
+		if top.Right != nil {
+			stack = append(stack, top.Right)
+			stack1 = append(stack1, tmp+"->"+strconv.Itoa(top.Right.Val))
+		}
+		if top.Left != nil {
+			stack = append(stack, top.Left)
+			stack1 = append(stack1, tmp+"->"+strconv.Itoa(top.Left.Val))
+		}
+	}
+	return res
+}
+
+/*
       5
      / \
     4   8
@@ -42,5 +70,5 @@ func binaryTreePaths(root *tree.TreeNode) []string {
 */
 func main() {
 	tRoot := tree.CreateTreeNode([]int{5, 4, 8, 11, tree.NilNode, 13, 4, 7, 2, tree.NilNode, tree.NilNode, tree.NilNode, tree.NilNode, tree.NilNode, 1})
-	fmt.Println(binaryTreePaths(tRoot))
+	fmt.Println(binaryTreePaths1(tRoot))
 }
