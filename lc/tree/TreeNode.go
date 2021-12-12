@@ -5,21 +5,22 @@ import (
 	"math"
 )
 
-const(
-	NilNode  int = -10000
+const (
+	NilNode int = -10000
 )
 
 type TreeNode struct {
-	Val int
-	Left *TreeNode
+	Val   int
+	Left  *TreeNode
 	Right *TreeNode
+	Next  *TreeNode
 }
 
 func CreateTreeNode(arr []int) *TreeNode {
 	tNodeList := make([]*TreeNode, len(arr))
 	for i := 0; i < len(arr); i++ {
 		tmpNode := new(TreeNode)
-		if arr[i]==NilNode {
+		if arr[i] == NilNode {
 			tmpNode = nil
 		} else {
 			tmpNode.Val = arr[i]
@@ -28,15 +29,15 @@ func CreateTreeNode(arr []int) *TreeNode {
 		tNodeList[i] = tmpNode
 	}
 
-	for i := 0; i < len(arr) / 2; i++ {
+	for i := 0; i < len(arr)/2; i++ {
 		if tNodeList[i] == nil {
 			continue
 		}
 		if 2*i+1 < len(arr) {
-			tNodeList[i].Left = tNodeList[2 * i + 1]
+			tNodeList[i].Left = tNodeList[2*i+1]
 		}
 		if 2*i+2 < len(arr) {
-			tNodeList[i].Right = tNodeList[2 * i + 2]
+			tNodeList[i].Right = tNodeList[2*i+2]
 		}
 	}
 	return tNodeList[0]
@@ -59,7 +60,7 @@ func LevelOrder(tRoot *TreeNode) {
 	fmt.Println()
 }
 
-func LevelOrderBottom(tRoot *TreeNode){
+func LevelOrderBottom(tRoot *TreeNode) {
 	queue := make([]*TreeNode, 0)
 	queue = append(queue, tRoot)
 
@@ -86,12 +87,11 @@ func LevelOrderBottom(tRoot *TreeNode){
 
 func LevelOrderBottom1(tRoot *TreeNode) [][]int {
 	res := make([][]int, 0)
-	if tRoot==nil {
+	if tRoot == nil {
 		return res
 	}
 	queue := make([]*TreeNode, 0)
 	queue = append(queue, tRoot)
-
 
 	for len(queue) > 0 {
 		n := len(queue)
@@ -113,14 +113,12 @@ func LevelOrderBottom1(tRoot *TreeNode) [][]int {
 	}
 	fmt.Println(res)
 
-
 	return res
 }
 
 func MaxDepth(tRoot *TreeNode) int {
-	if tRoot==nil {
+	if tRoot == nil {
 		return 0
 	}
 	return int(1 + math.Max(float64(MaxDepth(tRoot.Left)), float64(MaxDepth(tRoot.Right))))
 }
-
