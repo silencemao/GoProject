@@ -10,7 +10,7 @@ import (
 方案一：
 要求高度差不超过1，那我们就从中间分，中间的值作为根结点，将数组左边的数据作为左子树的节点，右边的数据作为右子树的节点
 有了一个根结点root 和两个数组nums1，nums2，然后nums1去构建左子树，构建的过程和上面的过程一致(一个根结点，两段数组)
-                                        nums2构建右子树
+nums2构建右子树
 依次类推，整个树构建完毕
 */
 
@@ -25,7 +25,7 @@ func helper108(root *tree.TreeNode, nums1, nums2 []int) {
 	}
 }
 
-func sortedArrayToBST(nums []int) *tree.TreeNode {
+func sortedArrayToBST2(nums []int) *tree.TreeNode {
 	if len(nums) < 1 {
 		return nil
 	}
@@ -52,10 +52,21 @@ func sortedArrayToBST1(nums []int) *tree.TreeNode {
 	return dfs(nums, 0, len(nums)-1)
 }
 
-func main() {
-	nums := []int{-10, 3, 0, 5, 9}
-	//root := sortedArrayToBST(nums)
-	root := sortedArrayToBST1(nums)
+func sortedArrayToBST(nums []int) *tree.TreeNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	rootInd := len(nums) / 2
+	rootNum := nums[len(nums)/2]
+	root := &tree.TreeNode{Val: rootNum}
+	root.Left = sortedArrayToBST(nums[:rootInd])
+	root.Right = sortedArrayToBST(nums[rootInd+1:])
+	return root
+}
 
+func main() {
+	nums := []int{-10, -3, 0, 5, 9}
+	root := sortedArrayToBST(nums)
 	fmt.Println(root)
+
 }
