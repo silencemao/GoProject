@@ -89,6 +89,26 @@ func largestSumAfterKNegations1(nums []int, k int) int {
 	return res
 }
 
+func largestSumAfterKNegations2(nums []int, k int) int {
+	sort.Ints(nums)
+	for i := 0; i < k; i++ {
+		if i < len(nums) && nums[i] < 0 {
+			nums[i] = -nums[i]
+		} else {
+			sort.Ints(nums)
+			if (k-i)%2 == 1 {
+				nums[0] = -nums[0]
+			}
+			break
+		}
+	}
+	res := 0
+	for _, v := range nums {
+		res += v
+	}
+	return res
+}
+
 func main() {
 	nums := []int{2, -3, -1, 5, -4}
 	k := 2
