@@ -34,6 +34,8 @@ func canCompleteCircuit(gas []int, cost []int) int {
 			}
 			if next == i {
 				return next
+			} else {
+				i = next
 			}
 		}
 	}
