@@ -29,7 +29,7 @@ func findMinArrowShots(points [][]int) int {
 		if points[i][0] > points[i-1][1] {
 			res += 1
 		} else {
-			points[i][1] = util.MinInt(points[i-1][1], points[i][1])
+			points[i][1] = util.MinInt(points[i-1][1], points[i][1]) // 如果气球重叠了，重叠气球中右边边界的最小值 之前的区间一定需要一个弓箭。
 		}
 	}
 	return res
