@@ -63,8 +63,32 @@ func longestConsecutive1(nums []int) int {
 	return res
 }
 
+// 不排序 O(n)做法
+func longestConsecutive2(nums []int) int {
+	set := make(map[int]bool, 0)
+	for _, num := range nums {
+		set[num] = true
+	}
+	maxLength := 0
+	for _, num := range nums {
+		if !set[num-1] {
+			curNum := num
+			curLength := 1
+			for set[curNum+1] {
+				curNum++
+				curLength += 1
+			}
+			if curLength > maxLength {
+				maxLength = curLength
+			}
+		}
+	}
+	return maxLength
+}
+
 func main() {
 	nums := []int{100, 4, 200, 2, 3, 1}
 	fmt.Println(longestConsecutive(nums))
 	fmt.Println(longestConsecutive1(nums))
+	fmt.Println(longestConsecutive2(nums))
 }
