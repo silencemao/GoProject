@@ -51,9 +51,43 @@ func maxProfit2(prices []int) int {
 	return res
 }
 
+func maxProfit3(prices []int) int {
+	dp := make([][]int, len(prices)) // dp[i][0]表示当天持有股票，dp[i][1]表示当天不持有股票
+	for i := range dp {
+		dp[i] = make([]int, 2)
+	}
+	dp[0][0] = -prices[0]
+	for i := 1; i < len(prices); i++ {
+		dp[i][0] = util.MaxInt(dp[i-1][0], -prices[i]) // 此处不能写成dp[i][0] = util.MaxInt(dp[i-1][0], dp[i-1][1]-prices[i]) 因为只能买卖一次
+		dp[i][1] = util.MaxInt(dp[i-1][1], dp[i-1][0]+prices[i])
+	}
+
+	return dp[len(dp)-1][1]
+}
+
+//  空间优化
+func maxProfit4(prices []int) int {
+	dp := make([][]int, 2) // dp[i][0]表示当天持有股票，dp[i][1]表示当天不持有股票
+	for i := range dp {
+		dp[i] = make([]int, 2)
+	}
+	dp[0][0] = -prices[0]
+	size := len(prices)
+	for i := 1; i < len(prices); i++ {
+		dp[i%2][0] = util.MaxInt(dp[(i-1)%2][0], -prices[i])
+		dp[i%2][1] = util.MaxInt(dp[(i-1)%2][1], dp[(i-1)%2][0]+prices[i])
+		//dp[i][0] = util.MaxInt(dp[i-1][0], -prices[i]) // 此处不能写成dp[i][0] = util.MaxInt(dp[i-1][0], dp[i-1][1]-prices[i]) 因为只能买卖一次
+		//dp[i][1] = util.MaxInt(dp[i-1][1], dp[i-1][0]+prices[i])
+	}
+
+	return dp[(size-1)%2][1]
+}
+
 func main() {
-	nums := []int{7, 6, 4}
+	nums := []int{7, 1, 5, 3, 6, 4}
 	fmt.Println(maxProfit(nums))
 	fmt.Println(maxProfit1(nums))
 	fmt.Println(maxProfit2(nums))
+	fmt.Println(maxProfit3(nums))
+	fmt.Println(maxProfit4(nums))
 }
