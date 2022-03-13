@@ -18,17 +18,34 @@ func grayCode(n int) []int {
 	for i := 0; i < 1<<n; i++ {
 		ans[i] = gray(i)
 	}
-	fmt.Println(ans)
 	return ans
 }
 
 // 数字转换为格雷码 公式 n xor (n>>1)
 func gray(n int) int {
-	fmt.Println(n)
 	return n ^ (n >> 1)
+}
+
+/*
+格雷码 G(n)
+G(n+1) = G(n)' U R(n)'
+G(n)'为在G(n)序列中每一个数首位添加0
+R(n)'为在G(n)逆序之后每一个数首位添加1 逆序是指，先遍历G(n)中最后一个数，再遍历倒数地个数
+*/
+func grayCode1(n int) []int {
+	ans := []int{0}
+	head := 1
+	for i := 0; i < n; i++ {
+		for j := len(ans) - 1; j >= 0; j-- {
+			ans = append(ans, head+ans[j])
+		}
+		head = head << 1
+	}
+	return ans
 }
 
 func main() {
 	n := 2
-	grayCode(n)
+	fmt.Println(grayCode(n))
+	fmt.Println(grayCode1(n))
 }
