@@ -12,6 +12,7 @@ import (
 输入： nums = [4, 3, 2, 3, 5, 2, 1], k = 4
 输出： True
 说明： 有可能将其分成 4 个子集（5），（1,4），（2,3），（2,3）等于总和。
+也是第416题的升级版
 */
 func canPartitionSubsets(nums []int, k int) bool {
 	if k > len(nums) {
