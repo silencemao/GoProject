@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/bits"
+)
 
 /*
 串联字符串的最大长度
@@ -12,6 +15,8 @@ import "fmt"
 输出：6
 解释：可能的解答有 "chaers" 和 "acters"
 给定字符串数组，返回可以组成的最大长度的字符串s，保证s中无重复字母
+
+注意:感觉题目的表述有点问题，我一开始理解成了可以取每个字符串的子序列，不一定要把每个字符串完全取到
 */
 func check1239(str string) bool {
 	if len(str) > 26 {
@@ -50,7 +55,41 @@ func maxLength(arr []string) int {
 	return res
 }
 
+/*
+二进制做法
+霜神牛逼
+https://books.halfrost.com/leetcode/ChapterFour/1200~1299/1239.Maximum-Length-of-a-Concatenated-String-with-Unique-Characters/
+*/
+func maxLength2(arr []string) int {
+	var c []uint32
+	res := 0
+	for _, str := range arr {
+		var mask uint32
+		for _, b := range str {
+			mask = mask | 1<<(b-'a')
+		}
+		if len(str) != bits.OnesCount32(mask) {
+			continue
+		}
+		c = append(c, mask)
+	}
+	dfs(c, 0, 0, &res)
+	return res
+}
+
+func dfs(c []uint32, mask uint32, ind int, res *int) {
+	if bits.OnesCount32(mask) > *res {
+		*res = bits.OnesCount32(mask)
+	}
+	for i := ind; i < len(c); i++ {
+		if mask&c[i] == 0 {
+			dfs(c, mask|c[i], i+1, res)
+		}
+	}
+}
+
 func main() {
 	arr := []string{"cha", "r", "act", "ers"}
 	fmt.Println(maxLength(arr))
+	fmt.Println(maxLength2(arr))
 }
