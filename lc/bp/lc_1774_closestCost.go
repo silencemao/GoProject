@@ -65,9 +65,37 @@ func closestCost(baseCosts []int, toppingCosts []int, target int) int {
 	return final
 }
 
+/*
+转换为背包问题
+*/
+
+func closestCost2(baseCosts []int, toppingCosts []int, target int) int {
+	res := 1<<31 - 1
+	dp := make([]bool, 20000+1)
+	fmt.Println(len(dp))
+	toppingCosts = append(toppingCosts, toppingCosts...)
+
+	for _, b := range baseCosts {
+		dp[b] = true
+	}
+	for _, t := range toppingCosts {
+		for j := len(dp) - 1; j >= t; j-- {
+			dp[j] = dp[j] || dp[j-t]
+		}
+	}
+
+	for j := 0; j < len(dp); j++ {
+		if dp[j] && math.Abs(float64(j-target)) < math.Abs(float64(res-target)) {
+			res = j
+		}
+	}
+	return res
+}
+
 func main() {
-	baseCosts := []int{3, 10}
-	toppingCosts := []int{2, 5}
-	target := 9
-	fmt.Println(closestCost(baseCosts, toppingCosts, target))
+	baseCosts := []int{2, 3}
+	toppingCosts := []int{4, 5, 100}
+	target := 18
+	//fmt.Println(closestCost(baseCosts, toppingCosts, target))
+	fmt.Println(closestCost2(baseCosts, toppingCosts, target))
 }
