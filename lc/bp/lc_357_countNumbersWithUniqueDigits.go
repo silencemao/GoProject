@@ -25,8 +25,23 @@ func countNumbersWithUniqueDigits2(n int) int {
 	return res + 1
 }
 
+//https://books.halfrost.com/leetcode/ChapterFour/0300~0399/0357.Count-Numbers-with-Unique-Digits/
+func countNumbersWithUniqueDigits(n int) int {
+	if n == 0 {
+		return 1
+	}
+	res, uniqueDigits, availableDigits := 10, 9, 9 // 结果 n位数字的个数 n+1位可选的数字个数
+	for n > 1 && availableDigits > 0 {             // n=1的时候res=10已经被算了一次了
+		uniqueDigits = uniqueDigits * availableDigits
+		res += uniqueDigits
+		availableDigits -= 1
+		n--
+	}
+	return res
+}
+
 func main() {
 	n := 2
-	//countNumbersWithUniqueDigits(n)
+	fmt.Println(countNumbersWithUniqueDigits(n))
 	fmt.Println(countNumbersWithUniqueDigits2(n))
 }
