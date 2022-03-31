@@ -19,7 +19,7 @@ func help491(res *[][]int, nums, tmp []int, ind int) {
 	if len(tmp) >= 2 {
 		*res = append(*res, append([]int{}, tmp...))
 	}
-	used := make([]int, 201)
+	used := make([]int, 201) // 控制一个根节点下的重复 4 7(第一个7) 回退到4之后 i+1 再遇到第二个7的时候，continue
 	for i := ind; i < len(nums); i++ {
 		if used[nums[i]+100] == 1 || (len(tmp) > 0 && nums[i] < tmp[len(tmp)-1]) {
 			continue
@@ -39,6 +39,6 @@ func findSubsequences(nums []int) [][]int {
 }
 
 func main() {
-	nums := []int{4, 6, 7, 7}
+	nums := []int{4, 7, 6, 7}
 	fmt.Println(findSubsequences(nums))
 }
