@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"GoProject/leetcode/util"
+	"fmt"
+)
 
 /*
 岛屿最大面积
@@ -80,6 +83,78 @@ func maxAreaOfIslandII(grid [][]int) int {
 	return res
 }
 
+// 并查集
+var max int
+
+type UnionFind struct {
+	parent []int
+	size   []int
+}
+
+func NewUnionFind(n int) *UnionFind {
+	parent := make([]int, n)
+	size := make([]int, n)
+
+	for i := 0; i < n; i++ {
+		parent[i] = i
+	}
+	return &UnionFind{parent: parent, size: size}
+}
+
+func (u *UnionFind) Find(i int) int {
+	root := i
+	for root != u.parent[root] {
+		root = u.parent[root]
+	}
+	for u.parent[i] != root {
+		i, u.parent[i] = u.parent[i], root
+	}
+	return root
+}
+
+func (u *UnionFind) Union(x, y int) {
+	xx, yy := u.Find(x), u.Find(y)
+	if xx != yy {
+		u.parent[xx] = yy
+		u.size[yy] += u.size[xx]
+		max = util.MaxInt(max, u.size[yy])
+	}
+
+}
+
+func maxAreaOfIslandIII(grid [][]int) int {
+	var (
+		m, n     = len(grid), len(grid[0])
+		ufind    = NewUnionFind(m*n + 1)
+		position func(i, j int) int
+	)
+	position = func(i, j int) int {
+		return i*n + j
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == 1 {
+				k := position(i, j)
+				ufind.parent[k] = k
+				ufind.size[k] = 1
+			}
+		}
+	}
+
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == 1 {
+				if i+1 < m && grid[i+1][j] == 1 {
+					ufind.Union(position(i+1, j), position(i, j))
+				}
+				if j+1 < n && grid[i][j+1] == 1 {
+					ufind.Union(position(i, j+1), position(i, j))
+				}
+			}
+		}
+	}
+	return max
+}
 func main() {
 	grid := [][]int{
 		{0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
@@ -101,4 +176,8 @@ func main() {
 		{0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}}
 	fmt.Println(maxAreaOfIslandII(grid))
+
+	grid = [][]int{
+		{1}}
+	fmt.Println(maxAreaOfIslandIII(grid))
 }
