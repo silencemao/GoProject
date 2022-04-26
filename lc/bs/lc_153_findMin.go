@@ -18,6 +18,7 @@ func findMin(nums []int) int {
 	l, r := 0, len(nums)-1
 	for l <= r {
 		mid := l + (r-l)>>1
+		//此处不用nums[mid] > nums[l] 主要原因是 nums[mid] > nums[l]时，最小值有可能在左边 也有可能在右边，所以这种判断方式不合适
 		if nums[mid] > nums[r] { // 最小值在右边
 			l = mid + 1
 		} else { // 最小值在左边
