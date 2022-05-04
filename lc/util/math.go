@@ -21,4 +21,9 @@ func MaxFloat64(a, b float64) float64 {
 	return a
 }
 
-
+func Abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
