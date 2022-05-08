@@ -57,8 +57,32 @@ func triangleNumber1(nums []int) int {
 	return res
 }
 
+// 二分法
+func triangleNumber2(nums []int) int {
+	sort.Ints(nums)
+	res := 0
+	for i := 0; i < len(nums); i++ {
+		for j := i - 1; j >= 0; j-- {
+			l, r := 0, j-1
+			for l < r {
+				mid := l + (r-l)>>1
+				if nums[mid]+nums[j] > nums[i] {
+					r = mid
+				} else {
+					l = mid + 1
+				}
+			}
+			if r >= 0 && nums[r]+nums[j] > nums[i] {
+				res += j - r
+			}
+		}
+	}
+	return res
+}
+
 func main() {
 	nums := []int{48, 66, 61, 46, 94, 75}
 	fmt.Println(triangleNumber(nums))
 	fmt.Println(triangleNumber1(nums))
+	fmt.Println(triangleNumber2(nums))
 }
