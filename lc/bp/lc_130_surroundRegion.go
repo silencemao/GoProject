@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	_struct "GoProject/leetcode/struct"
+	"fmt"
+)
 
 /*
 给你一个 m x n 的矩阵 board ，由若干字符 'X' 和 'O' ，找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。
@@ -149,43 +152,6 @@ func connect(i, j int, arr []int) {
 	}
 }
 
-type UnionFind struct {
-	parent []int
-}
-
-func NewUnionFind(n int) *UnionFind {
-	parent := make([]int, n)
-	for i := 0; i < n; i++ {
-		parent[i] = i
-	}
-	return &UnionFind{
-		parent: parent,
-	}
-}
-
-func (u *UnionFind) Find(i int) int {
-	root := i
-	for u.parent[root] != root {
-		root = u.parent[root]
-	}
-	for u.parent[i] != root {
-		i, u.parent[i] = u.parent[i], root
-	}
-	return root
-}
-
-func (u *UnionFind) Union(i, j int) {
-	pi := u.Find(i)
-	pj := u.Find(j)
-	if pi != pj {
-		u.parent[pi] = pj
-	}
-}
-
-func (u *UnionFind) IsConnected(i, j int) bool {
-	return u.Find(i) == u.Find(j)
-}
-
 func solveIII(board [][]byte) {
 	if len(board) <= 2 {
 		return
@@ -193,7 +159,7 @@ func solveIII(board [][]byte) {
 
 	var (
 		m, n         = len(board), len(board[0])
-		dummy, ufind = m * n, NewUnionFind(m*n + 1)
+		dummy, ufind = m * n, _struct.NewUnionFind(m*n + 1)
 		position     func(i, j int) int
 	)
 	position = func(i, j int) int {
@@ -215,8 +181,8 @@ func solveIII(board [][]byte) {
 			}
 		}
 	}
-	for i := 0; i < len(ufind.parent)-1; i++ {
-		fmt.Print(ufind.parent[i], " ")
+	for i := 0; i < len(ufind.Parent)-1; i++ {
+		fmt.Print(ufind.Parent[i], " ")
 		if i > 0 && (i+1)%n == 0 {
 			fmt.Println()
 		}
