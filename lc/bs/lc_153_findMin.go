@@ -28,7 +28,21 @@ func findMin(nums []int) int {
 	return nums[l] // 最后一步 l=r=mid，然后nums[mid] = nums[l] --> r-=1，l所指的位置为最小值
 }
 
+func findMin1(nums []int) int {
+	l, r := 0, len(nums)-1
+	for l <= r {
+		mid := l + (r-l)>>1
+		if nums[mid] < nums[r] {
+			r = mid
+		} else {
+			l = mid + 1
+		}
+	}
+	return nums[r]
+}
+
 func main() {
-	nums := []int{11, 13, 15, 17}
+	nums := []int{18, 19, 11, 13, 15, 17}
 	fmt.Println(findMin(nums))
+	fmt.Println(findMin1(nums))
 }
