@@ -11,6 +11,9 @@ import (
 在加热器的加热半径范围内的每个房屋都可以获得供暖。
 现在，给出位于一条水平线上的房屋houses 和供暖器heaters 的位置，请你找出并返回可以覆盖所有房屋的最小加热半径。
 说明：所有供暖器都遵循你的半径标准，加热的半径也一样。
+
+1、找每个房间最近的暖气，分别是距离house[i]最近的前后各一个暖气，计算二者最近的距离d=min(d1,d2)
+2、选择所有房间最近距离d的最大值，max(d)
 */
 func findRadius(houses []int, heaters []int) int {
 	sort.Ints(houses)
@@ -37,9 +40,23 @@ func findRadius(houses []int, heaters []int) int {
 	return res
 }
 
+func findRadius1(houses []int, heaters []int) int {
+	res := -1
+	for i := 0; i < len(houses); i++ {
+		tmp := 1<<31 - 1
+		for j := 0; j < len(heaters); j++ {
+			tmp = util.MinInt(util.Abs(houses[i]-heaters[j]), tmp)
+		}
+		res = util.MaxInt(tmp, res)
+	}
+
+	return res
+}
+
 func main() {
 	houses := []int{1, 2, 3, 4}
 	heaters := []int{1, 4}
 	fmt.Println(findRadius(houses, heaters))
+	fmt.Println(findRadius1(houses, heaters))
 
 }
