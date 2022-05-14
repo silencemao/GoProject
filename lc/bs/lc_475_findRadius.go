@@ -53,10 +53,47 @@ func findRadius1(houses []int, heaters []int) int {
 	return res
 }
 
+func findRadius2(houses []int, heaters []int) int {
+	sort.Ints(houses)
+	sort.Ints(heaters)
+	res := -1
+	h1, h2 := heaters[0], heaters[len(heaters)-1]
+	for i, house := range houses {
+		if house <= h1 {
+			res = util.MaxInt(h1-house, res)
+		} else if house >= h2 {
+			res = util.MaxInt(house-h2, res)
+		} else {
+			pos := bs475(heaters, house)
+			tmp := util.MinInt(heaters[pos]-house, house-heaters[pos-1])
+			res = util.MaxInt(tmp, res)
+		}
+		fmt.Println(res, i)
+	}
+	return res
+}
+
+// 找第一个>=target的值
+func bs475(heaters []int, target int) int {
+	l, r := 0, len(heaters)-1
+	for l <= r {
+		mid := l + (r-l)>>1
+		if heaters[mid] >= target {
+			if mid == 0 || heaters[mid-1] < target {
+				return mid
+			}
+			r = mid - 1
+		} else {
+			l = mid + 1
+		}
+	}
+	return l
+}
+
 func main() {
-	houses := []int{1, 2, 3, 4}
-	heaters := []int{1, 4}
+	houses := []int{282475249, 622650073, 984943658, 144108930, 470211272, 101027544, 457850878, 458777923}
+	heaters := []int{823564440, 115438165, 784484492, 74243042, 114807987, 137522503, 441282327, 16531729, 823378840, 143542612}
 	fmt.Println(findRadius(houses, heaters))
 	fmt.Println(findRadius1(houses, heaters))
-
+	fmt.Println(findRadius2(houses, heaters))
 }
