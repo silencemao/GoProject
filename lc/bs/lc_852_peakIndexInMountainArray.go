@@ -21,9 +21,23 @@ func peakIndexInMountainArray(arr []int) int {
 			r = mid - 1
 		}
 	}
-	return r
+	return l
+}
+
+func peakIndexInMountainArray1(arr []int) int {
+	l, r := 0, len(arr)-1
+	for l < r {
+		mid := (l + r) >> 1 // mid<r
+		if arr[mid] < arr[mid+1] {
+			l = mid + 1
+		} else {
+			r = mid
+		}
+	}
+	return l
 }
 func main() {
 	arr := []int{24, 69, 100, 99, 79, 78, 67, 36, 26, 19}
 	fmt.Println(peakIndexInMountainArray(arr))
+	fmt.Println(peakIndexInMountainArray1(arr))
 }
