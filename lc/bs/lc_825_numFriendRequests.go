@@ -16,24 +16,22 @@ ages[y] > 100 && ages[x] < 100
 func numFriendRequests(ages []int) int {
 	sort.Ints(ages)
 	res, n := 0, len(ages)
+	j, k := 0, 1 //给y发消息的最小x索引，给y发消息的最大x索引
 	for i := 0; i < n; i++ {
 		y := ages[i]
-		j, k := i-1, i+1
-		for j >= 0 && help825(ages[j], y) {
-			j -= 1
+		for j < i && !help825(ages[j], y) {
+			j += 1
 		}
-		if j < 0 {
-			j = 0
+		if k < i {
+			k = i
 		}
 		for k < n && help825(ages[k], y) {
 			k += 1
 		}
 		if k > j {
-			res += k - j - 1
+			res += k - j - 1 // 不包括i和k
 		}
-
 	}
-
 	return res
 }
 
@@ -45,6 +43,6 @@ func help825(x, y int) bool {
 }
 
 func main() {
-	ages := []int{16, 17, 18}
+	ages := []int{118, 14, 7, 63, 103}
 	fmt.Println(numFriendRequests(ages))
 }
