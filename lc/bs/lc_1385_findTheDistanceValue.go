@@ -29,6 +29,33 @@ func findTheDistanceValue(arr1 []int, arr2 []int, d int) int {
 	}
 	return cnt
 }
+func findTheDistanceValue1(arr1 []int, arr2 []int, d int) int {
+	sort.Ints(arr2)
+	cnt := 0
+	for _, num := range arr1 {
+		if bs1385(arr2, num, d) {
+			cnt += 1
+		}
+	}
+
+	return cnt
+}
+
+func bs1385(arr []int, target, d int) bool {
+	l, r := 0, len(arr)-1
+	for l <= r {
+		mid := l + (r-l)>>1
+		if target-d <= arr[mid] && arr[mid] <= target+d {
+			return false
+		}
+		if arr[mid] < target-d {
+			l = mid + 1
+		} else if arr[mid] > target+d {
+			r = mid - 1
+		}
+	}
+	return true
+}
 
 func main() {
 	arr1 := []int{4, 5, 8}
