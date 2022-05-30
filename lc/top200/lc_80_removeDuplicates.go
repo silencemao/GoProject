@@ -29,9 +29,22 @@ func removeDuplicatesII(nums []int) int {
 	return pos + 1
 }
 
+//通用解法
+func removeDuplicatesII2(nums []int, k int) int {
+	pos := 0
+	for _, num := range nums {
+		if pos < k || nums[pos-k] != num {
+			nums[pos] = num
+			pos += 1
+		}
+	}
+	return pos
+}
+
 func main() {
 	nums := []int{1, 2, 2, 3, 3, 4, 4, 4}
-	pos := removeDuplicatesII(nums)
+	//pos := removeDuplicatesII(nums)
+	pos := removeDuplicatesII2(nums, 2)
 	for i := 0; i < pos; i++ {
 		fmt.Println(nums[i])
 	}
