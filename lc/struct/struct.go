@@ -31,6 +31,7 @@ func MergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 func PrintList(head *ListNode) {
 	for head != nil {
 		fmt.Print(head.Val)
+		fmt.Print(" ")
 		head = head.Next
 	}
 	fmt.Println()
