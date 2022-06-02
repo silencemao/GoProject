@@ -54,10 +54,41 @@ func reverseBetween(head *_struct.ListNode, left int, right int) *_struct.ListNo
 	return dummy.Next
 }
 
+/*
+不断的把被翻转的节点作为被翻转区间第一个节点
+1->2->3->4->5->nil
+left=2 right=4
+第一步 1 3 2 4 5
+第二步 1 4 3 2 5
+*/
+func reverseBetween1(head *_struct.ListNode, left int, right int) *_struct.ListNode {
+	dummy := &_struct.ListNode{Val: -1, Next: head}
+	pre := dummy
+	for i := 0; i < left-1; i++ {
+		pre = pre.Next
+	}
+
+	cur := pre.Next
+	for i := 0; i < right-left; i++ {
+		next := cur.Next // 被翻转的节点
+
+		cur.Next = next.Next
+		next.Next = pre.Next // 被翻转的节点的下一个 一定是 pre后面那个节点
+		pre.Next = next
+
+		//下面这个操作不对
+		//pre.Next = next
+		//cur.Next = next.Next
+		//next.Next = pre.Next // 会导致pre 和 next互相指向对方
+
+	}
+	return dummy.Next
+}
+
 func main() {
 	head := &_struct.ListNode{Val: 1, Next: &_struct.ListNode{Val: 2, Next: &_struct.ListNode{Val: 3, Next: &_struct.ListNode{Val: 4, Next: &_struct.ListNode{Val: 5}}}}}
 	_struct.PrintList(head)
 	fmt.Println(head.Val)
-	head = reverseBetween(head, 1, 5)
+	head = reverseBetween1(head, 1, 5)
 	_struct.PrintList(head)
 }
