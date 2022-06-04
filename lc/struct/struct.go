@@ -1,10 +1,22 @@
 package _struct
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+func NewList(arr []int) *ListNode {
+	dummy := &ListNode{Val: -1}
+	tmp := dummy
+	for _, num := range arr {
+		tmp.Next = &ListNode{Val: num}
+		tmp = tmp.Next
+	}
+	return dummy.Next
 }
 
 func MergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
