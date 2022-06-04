@@ -43,10 +43,31 @@ func partition86(head *_struct.ListNode, x int) *_struct.ListNode {
 	return dummy.Next
 }
 
+/*
+这个操作很清晰，简单
+*/
+func partition862(head *_struct.ListNode, x int) *_struct.ListNode {
+	minNode, maxNode := &_struct.ListNode{}, &_struct.ListNode{}
+	minHead, maxHead := minNode, maxNode
+	for head != nil {
+		if head.Val < x {
+			minNode.Next = head
+			minNode = minNode.Next
+		} else {
+			maxNode.Next = head
+			maxNode = maxNode.Next
+		}
+		head = head.Next
+	}
+	maxNode.Next = nil
+	minNode.Next = maxHead.Next
+	return minHead.Next
+}
+
 func main() {
 	head := _struct.NewList([]int{2, 1})
 	_struct.PrintList(head)
 
-	head = partition86(head, 2)
+	head = partition862(head, 2)
 	_struct.PrintList(head)
 }
