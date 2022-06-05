@@ -38,14 +38,14 @@ func trap1(height []int) int {
 			} else {
 				res += lMax - height[l] // 记录l位置可以存储的水
 			}
-			l++
+			l += 1
 		} else {
 			if height[r] >= rMax {
 				rMax = height[r]
 			} else {
 				res += rMax - height[r]
 			}
-			r--
+			r -= 1
 		}
 	}
 	return res
