@@ -43,7 +43,7 @@ func wordBreak1(s string, wordDict []string) bool {
 	dp := make([]bool, len(s)+1)
 	dp[0] = true
 
-	for i := 0; i <= len(s); i++ {
+	for i := 0; i <= len(s); i++ { // i的长度要取到len(s),否则娶不到最后一个字母
 		for _, word := range wordDict {
 			l := len(word)
 			if i-l >= 0 && s[i-l:i] == word {
