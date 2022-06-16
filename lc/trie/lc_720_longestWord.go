@@ -1,7 +1,6 @@
 package main
 
 import (
-	_struct "GoProject/leetcode/struct"
 	"fmt"
 	"sort"
 )
@@ -19,8 +18,46 @@ import (
 解释： 单词"world"可由"w", "wo", "wor", 和 "worl"逐步添加一个字母组成。
 
 */
+
+type Trie struct {
+	IsEnd bool
+	Next  []*Trie
+}
+
+func Constructor() Trie {
+	trie := Trie{}
+	trie.IsEnd = false
+	trie.Next = make([]*Trie, 26)
+	return trie
+}
+
+func (this *Trie) Insert(word string) {
+	node := this
+	for _, c := range word {
+		ch := c - 'a'
+		if node.Next[ch] == nil {
+			t := Constructor()
+			node.Next[ch] = &t
+		}
+		node = node.Next[ch]
+	}
+	node.IsEnd = true
+}
+
+func (this *Trie) Search(word string) bool {
+	node := this
+	for _, c := range word {
+		ch := c - 'a'
+		node = node.Next[ch]
+		if node == nil || !node.IsEnd { // 控制每个前缀是由列表中其它单词加一个字母得到
+			return false
+		}
+	}
+	return node.IsEnd
+}
+
 func longestWord(words []string) string {
-	trie := _struct.Constructor()
+	trie := Constructor()
 	for _, w := range words {
 		trie.Insert(w)
 	}
