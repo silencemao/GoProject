@@ -9,13 +9,14 @@ import (
 
 若其中有多个可行的答案，则返回答案中字典序最小的单词。若无答案，则返回空字符串。
 
-
-
-示例 1：
-
 输入：words = ["w","wo","wor","worl", "world"]
 输出："world"
 解释： 单词"world"可由"w", "wo", "wor", 和 "worl"逐步添加一个字母组成。
+
+"yo", "ew", "fc", "zrc", "yodn", "fcm", "qm", "qmo", "fcmz", "z", "ewq", "yod", "ewqz", "y"
+返回yodn，不是ewqz
+因为yodn 是由 y->yo->yod->yodn
+而ewqz不存在这样的路径，所以在字典树查找的过程中，判断以每个单词的任一字母结尾构成的前缀，是否存在这样的前缀在字典树中
 
 */
 
@@ -74,21 +75,26 @@ func longestWord(words []string) string {
 	return res
 }
 
-func main() {
-	words := []string{"yo", "ew", "fc", "zrc", "yodn", "fcm", "qm", "qmo", "fcmz", "z", "ewq", "yod", "ewqz", "y"}
+func longestWord2(words []string) string {
 	sort.Slice(words, func(i, j int) bool {
-		if len(words[i]) < len(words[j]) {
-			return true
-		} else if len(words[i]) > len(words[j]) {
-			return false
-		} else {
-			if words[i] < words[j] {
-				return true
-			} else {
-				return false
-			}
-		}
+		a, b := words[i], words[j]
+		return len(a) < len(b) || (len(a) == len(b) && a > b)
 	})
-	fmt.Println(words)
+	set := make(map[string]bool)
+	set[""] = true
+	res := ""
+	for _, w := range words {
+		if _, ok := set[w[:len(w)-1]]; ok {
+			set[w] = true
+			res = w
+		}
+	}
+	return res
+}
+
+func main() {
+	words := []string{"a", "banana", "app", "appl", "ap", "apply", "apple"}
+
 	fmt.Println(longestWord(words))
+	fmt.Println(longestWord2(words))
 }
