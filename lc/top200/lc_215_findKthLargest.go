@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 )
 
@@ -36,8 +37,30 @@ func findKthLargest(nums []int, k int) int {
 	return res
 }
 
+type ns []int
+
+func (n ns) Len() int            { return len(n) }
+func (n ns) Less(i, j int) bool  { return n[i] < n[j] }
+func (n ns) Swap(i, j int)       { n[i], n[j] = n[j], n[i] }
+func (n *ns) Push(v interface{}) { *n = append(*n, v.(int)) }
+func (n *ns) Pop() interface{}   { a := *n; v := a[len(a)-1]; *n = a[:len(a)-1]; return v }
+
+func findKthLargest2(nums []int, k int) int {
+	n := &ns{}
+	for _, num := range nums {
+		heap.Push(n, num)
+		if n.Len() > k {
+			heap.Pop(n)
+		}
+	}
+	res := heap.Pop(n).(int)
+	fmt.Println(res)
+	return res
+}
 func main() {
 	nums := []int{9, 8, 0, 1, 4, 3, 9, 6, 5, 3}
 	k := 4
-	fmt.Println(findKthLargest(nums, k))
+	//fmt.Println(findKthLargest(nums, k))
+	//fmt.Println(findKthLargest1(nums, k))
+	fmt.Println(findKthLargest2(nums, k))
 }
