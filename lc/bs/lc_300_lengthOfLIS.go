@@ -19,16 +19,16 @@ func lengthOfLIS(nums []int) int {
 			l += 1
 			lastNumOfLis[l] = nums[i]
 		} else {
-			l, r := 1, l // l要从1开始
-			for l < r {
-				mid := l + (r-l)>>1
-				if lastNumOfLis[mid] < nums[i] { // 找到>nums[i]的最小值
-					l = mid + 1
+			low, high := 1, l
+			for low < high {
+				mid := low + (high-low)>>1
+				if lastNumOfLis[mid] < nums[i] {
+					low = mid + 1
 				} else {
-					r = mid
+					high = mid
 				}
 			}
-			lastNumOfLis[l] = nums[i]
+			lastNumOfLis[low] = nums[i]
 		}
 	}
 	return l
