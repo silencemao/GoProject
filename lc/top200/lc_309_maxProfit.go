@@ -11,7 +11,7 @@ func maxProfit4(prices []int) int {
 	if len(prices) == 1 {
 		return res
 	}
-	s0, s1, s2 := 0, -prices[0], 0
+	s0, s1, s2 := 0, -prices[0], 0 // 冷冻、买、卖
 	for i, p := range prices {
 		if i == 0 {
 			continue
