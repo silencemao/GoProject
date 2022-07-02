@@ -14,6 +14,15 @@ import (
 解释：最长有效括号子串是 "()"
 
 */
+
+/*
+栈，栈底始终存储最后一个没有被匹配的')'，栈中其它位置存储被遍历过的'('的索引
+先用-1代替没有被匹配的')'，放入栈底
+遇到'('，直接将索引加入栈中
+遇到')' 首相将栈顶元素pop出去
+若栈为空，则将当前')'的索引加入栈中
+若栈不为空，则计算当前元素与栈顶元素的距离
+*/
 func longestValidParentheses(s string) int {
 	res := 0
 	var stack []int
@@ -23,9 +32,9 @@ func longestValidParentheses(s string) int {
 			stack = append(stack, i)
 		} else {
 			stack = stack[:len(stack)-1]
-			if len(stack) == 0 {
+			if len(stack) == 0 { // 栈中没有 与 当前')'匹配的元素 因为栈底是-1
 				stack = append(stack, i)
-			} else {
+			} else { // 被pop出去的那个元素是与当前')'匹配的元素
 				res = util.MaxInt(res, i-stack[len(stack)-1])
 			}
 		}
@@ -33,6 +42,6 @@ func longestValidParentheses(s string) int {
 	return res
 }
 func main() {
-	s := "()()"
+	s := "((()"
 	fmt.Println(longestValidParentheses(s))
 }
