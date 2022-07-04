@@ -22,7 +22,7 @@ func minCut(s string) int {
 
 	f := make([]int, n)
 	for i := range f {
-		if g[0][i] {
+		if g[0][i] { // 0-i之间子串已经是回文了，不需要切割
 			continue
 		}
 		f[i] = math.MaxInt64
