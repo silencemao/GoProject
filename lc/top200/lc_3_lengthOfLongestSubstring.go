@@ -48,6 +48,21 @@ func lengthOfLongestSubstring1(s string) int {
 	return res
 }
 
+func lengthOfLongestSubstring2(s string) int {
+	runeMap := make(map[rune]int)
+	max, beginAt := 0, 0
+	for k, v := range s {
+		if value, ok := runeMap[v]; ok && value >= beginAt {
+			beginAt = value + 1
+		}
+		if k-beginAt+1 > max {
+			max = k - beginAt + 1
+		}
+		runeMap[v] = k
+	}
+	return max
+}
+
 func main() {
 	s := "abcabcbb"
 	fmt.Println(lengthOfLongestSubstring(s))
