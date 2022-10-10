@@ -28,7 +28,7 @@ func coinChange(coins []int, amount int) int {
 	if coins[0] > amount {
 		return -1
 	}
-	dp := make([]int, amount+1)
+	dp := make([]int, amount+1) // dp[i]表示装满大小为i的背包需要的硬币个数
 	dp[0] = 0
 	for i := 1; i <= amount; i++ {
 		dp[i] = 1<<31 - 1
