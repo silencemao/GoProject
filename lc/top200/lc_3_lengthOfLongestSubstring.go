@@ -63,6 +63,19 @@ func lengthOfLongestSubstring2(s string) int {
 	return max
 }
 
+func lengthOfLongestSubstring3(s string) int {
+	l, r, res := -1, 0, 0
+	set := map[byte]int{}
+	for ; r < len(s); r++ {
+		if ind, ok := set[s[r]]; ok {
+			l = util.MaxInt(ind, l)
+		}
+		res = util.MaxInt(r-l, res)
+		set[s[r]] = r
+	}
+	return res
+}
+
 func main() {
 	s := "abcabcbb"
 	fmt.Println(lengthOfLongestSubstring(s))
