@@ -29,8 +29,30 @@ func countConsistentStrings(allowed string, words []string) int {
 	}
 	return res
 }
+
+//位运算
+
+func f1684(allowed string, words []string) int {
+	res := 0
+	mask := 0
+	for _, c := range allowed {
+		mask |= 1 << (c - 'a')
+	}
+	for _, word := range words {
+		mask1 := 0
+		for _, c := range word {
+			mask1 |= 1 << (c - 'a')
+		}
+		if mask|mask1 == mask {
+			res += 1
+		}
+	}
+	return res
+}
+
 func main() {
 	allowed := "ab"
 	words := []string{"ad", "bd", "aaab", "baa", "badab"}
 	fmt.Println(countConsistentStrings(allowed, words))
+	fmt.Println(f1684(allowed, words))
 }
