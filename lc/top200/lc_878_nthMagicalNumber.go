@@ -21,7 +21,7 @@ func nthMagicalNumber(n int, a int, b int) int {
 		mid := l + (r-l)>>1
 		cnt := mid/a + mid/b - mid/lcm //<=mid的数字中有多少个可以被 a 或者 b整除
 
-		if cnt >= n { // cnt==n时
+		if cnt >= n { // cnt==n时 r不一定是最小的结果，因为在 r-min(a,b)-1, r之间的cnt数字是一样的，所以此处r继续减-1，逼近结果值
 			r = mid - 1
 		} else {
 			l = mid + 1
