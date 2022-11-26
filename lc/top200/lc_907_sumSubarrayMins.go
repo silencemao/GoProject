@@ -71,17 +71,34 @@ func sumSubarrayMins1(arr []int) int {
 		l[i] = stack[len(stack)-1]
 		stack = append(stack, i)
 	}
-	fmt.Println(arr)
-	fmt.Println(l)
-	fmt.Println(r)
+
 	for i := 0; i < n; i++ {
 		res = (res + (i-l[i])*(r[i]-i)*arr[i]) % mod
 	}
 	return res
 }
 
+//一次遍历
+func sumSubarrayMins2(arr []int) int {
+	arr = append(arr, -1) // 此处加一个-1，否则原arr的最后一个数字有可能没有被算作最小值
+	res, n := 0, len(arr)
+	const mod int = 1e9 + 7
+	stack := []int{-1}
+	for r := 0; r < n; r++ {
+		for len(stack) > 1 && arr[stack[len(stack)-1]] >= arr[r] {
+			i := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			l := stack[len(stack)-1]
+			res = (res + (r-i)*(i-l)*arr[i]) % mod
+		}
+		stack = append(stack, r)
+	}
+	return res % mod
+}
+
 func main() {
 	arr := []int{1, 2, 4, 2, 3, 1}
 	fmt.Println(sumSubarrayMins(arr))
 	fmt.Println(sumSubarrayMins1(arr))
+	fmt.Println(sumSubarrayMins2(arr))
 }
