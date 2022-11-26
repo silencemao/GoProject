@@ -41,6 +41,8 @@ func numSubarrayBoundedMax(nums []int, left int, right int) int {
 		}
 		stack = append(stack, i)
 	}
+	fmt.Println(l)
+	fmt.Println(r)
 	for i := 0; i < len(nums); i++ {
 		if nums[i] >= left && nums[i] <= right {
 			res += (r[i] - i) * (i - l[i])
@@ -74,7 +76,7 @@ func help795(thresh int, nums []int) int {
 }
 
 func main() {
-	nums := []int{2, 9, 2, 5, 6}
+	nums := []int{1, 2, 4, 2, 3, 1}
 	left, right := 2, 8
 	fmt.Println(numSubarrayBoundedMax1(nums, left, right))
 	fmt.Println(nums)
