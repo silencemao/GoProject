@@ -1,8 +1,9 @@
 package main
 
 import (
-	"container/heap"
 	_struct "GoProject/leetcode/struct"
+	"container/heap"
+	"fmt"
 	"sort"
 )
 
@@ -80,10 +81,42 @@ func mergeKLists3(lists []*_struct.ListNode) *_struct.ListNode {
 	return head.Next
 }
 
+type ls []*_struct.ListNode
+
+func (l ls) Len() int           { return len(l) }
+func (l ls) Less(i, j int) bool { return l[i].Val < l[j].Val } // 小根堆
+func (l ls) Swap(i, j int)      { l[i], l[j] = l[j], l[i] }
+
+func (l *ls) Push(v interface{}) { *l = append(*l, v.(*_struct.ListNode)) }
+func (l *ls) Pop() interface{}   { a := *l; v := a[len(a)-1]; *l = a[:len(a)-1]; return v } // 弹出根节点
+
+func f23(lists []*_struct.ListNode) *_struct.ListNode {
+	head := &_struct.ListNode{Val: 0, Next: nil}
+	h := &ls{}
+
+	for _, l := range lists {
+		if l == nil {
+			continue
+		}
+		heap.Push(h, l)
+	}
+	dummy := head
+	for h.Len() > 0 {
+		tmp := heap.Pop(h).(*_struct.ListNode)
+		dummy.Next = tmp
+		dummy = dummy.Next
+		if tmp.Next != nil {
+			heap.Push(h, tmp.Next)
+		}
+	}
+	return head.Next
+}
+
 func main() {
 	l1 := &_struct.ListNode{Val: 1, Next: &_struct.ListNode{Val: 4, Next: &_struct.ListNode{Val: 5}}}
 	l2 := &_struct.ListNode{Val: 1, Next: &_struct.ListNode{Val: 3, Next: &_struct.ListNode{Val: 4}}}
 	l3 := &_struct.ListNode{Val: 2, Next: &_struct.ListNode{Val: 6}}
+
 	lists := []*_struct.ListNode{l1, l2, l3}
 	head := mergeKLists(lists)
 	_struct.PrintList(head)
@@ -96,4 +129,8 @@ func main() {
 
 	head3 := mergeKLists3(lists)
 	_struct.PrintList(head3)
+
+	fmt.Println()
+	head4 := f23(lists)
+	_struct.PrintList(head4)
 }
