@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"container/heap"
+	"fmt"
+)
 
 /*
 给你一个整数数组 nums，有一个大小为k的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k个数字。滑动窗口每次只向右移动一位。
@@ -86,11 +89,50 @@ func minSlidingWindow3(nums []int, k int) []int {
 	return res
 }
 
+/*
+优先队列
+1、构造数据结构 lc239 有两个字段 ind 和 num
+2、首先将元素像优先队列中放置，直到队列中元素个数等于k个
+3、如果队列头部元素的索引<i-k，则弹出，因为它不在元素i合适的滑动窗口内
+4、取出队列头部元素，注意此处不是弹出
+*/
+type lc239 struct {
+	ind int
+	num int
+}
+
+type ms []*lc239
+
+func (m ms) Len() int           { return len(m) }
+func (m ms) Swap(i, j int)      { m[i], m[j] = m[j], m[i] }
+func (m ms) Less(i, j int) bool { return m[i].num > m[j].num }
+
+func (m *ms) Push(v interface{}) { *m = append(*m, v.(*lc239)) }
+func (m *ms) Pop() interface{}   { a := *m; v := a[len(a)-1]; *m = a[:len(a)-1]; return v }
+
+func f239(nums []int, k int) []int {
+	var res []int
+	h := &ms{}
+	for i := 0; i < len(nums); i++ {
+		heap.Push(h, &lc239{ind: i, num: nums[i]})
+		if h.Len() >= k {
+			for (*h)[0].ind <= i-k {
+				heap.Pop(h)
+			}
+
+			top := (*h)[0].num // 不是弹出，是取元素值
+			res = append(res, top)
+		}
+	}
+	return res
+}
+
 func main() {
 	nums := []int{7, 4, 5, 1, 2, 3, 7, 8}
 	k := 2
-	//fmt.Println(maxSlidingWindow1(nums, k))
+	fmt.Println(maxSlidingWindow1(nums, k))
 	//fmt.Println(maxSlidingWindow2(nums, k))
-	fmt.Println(minSlidingWindow2(nums, k))
-	fmt.Println(minSlidingWindow3(nums, k))
+	//fmt.Println(minSlidingWindow2(nums, k))
+	//fmt.Println(minSlidingWindow3(nums, k))
+	fmt.Println(f239(nums, k))
 }
