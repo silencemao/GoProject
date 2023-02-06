@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /*
 给定三个字符串s1、s2、s3，请你帮忙验证s3是否是由s1和s2 交错 组成的。
@@ -37,7 +39,33 @@ func isInterleave(s1 string, s2 string, s3 string) bool {
 	return dp[m][n]
 }
 
+func isInterleave1(s1 string, s2 string, s3 string) bool {
+	if len(s1)+len(s2) != len(s3) {
+		return false
+	}
+	return dfs97(s1, s2, s3, 0, 0, 0)
+}
+
+func dfs97(s1, s2, s3 string, k1, k2, k3 int) bool {
+	if k1+k2 >= len(s3) {
+		return true
+	}
+	if k1 < len(s1) && s1[k1] == s3[k3] {
+		if dfs97(s1, s2, s3, k1+1, k2, k3+1) {
+			return true
+		}
+
+	}
+	if k2 < len(s2) && s2[k2] == s3[k3] {
+		if dfs97(s1, s2, s3, k1, k2+1, k3+1) {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	s1, s2, s3 := "aabcc", "dbbca", "aadbbcbcac"
 	fmt.Println(isInterleave(s1, s2, s3))
+	fmt.Println(isInterleave1(s1, s2, s3))
 }
