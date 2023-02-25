@@ -9,7 +9,7 @@ import (
 
 type Floyd struct {
 	tTwoPointDis [][]int
-	tPath [][]int
+	tPath        [][]int
 }
 
 func (f *Floyd) Init(tDis [][]int) {
@@ -75,7 +75,7 @@ func (f *Floyd) getPath(i, j int) string {
 
 func main() {
 	tDis := [][]int{
-		{0,      2, 6, 4},
+		{0, 2, 6, 4},
 		{127, 0, 3, 127},
 		{7, 127, 0, 1},
 		{5, 127, 12, 0}}
@@ -84,5 +84,3 @@ func main() {
 	f.Init(tDis)
 	f.solve()
 }
-
-

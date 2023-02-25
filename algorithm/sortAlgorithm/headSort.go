@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func heapAdjust(arr []int, beg int, length int) {
-	left := 2 * beg + 1
+	left := 2*beg + 1
 	for left < length {
 		if left+1 < length && arr[left] < arr[left+1] {
 			left++
@@ -11,7 +11,7 @@ func heapAdjust(arr []int, beg int, length int) {
 		if arr[beg] < arr[left] {
 			arr[beg], arr[left] = arr[left], arr[beg]
 			beg = left
-			left = 2 * left + 1
+			left = 2*left + 1
 		} else {
 			break
 		}
@@ -19,8 +19,8 @@ func heapAdjust(arr []int, beg int, length int) {
 }
 
 func heapSort(arr []int) {
-	for i := len(arr) /2 - 1; i >=0 ; i-- {
-		heapAdjust(arr[:], i, len(arr) - 1)
+	for i := len(arr)/2 - 1; i >= 0; i-- {
+		heapAdjust(arr[:], i, len(arr)-1)
 	}
 
 	for i := len(arr) - 1; i > 0; i-- {

@@ -5,9 +5,9 @@ import "fmt"
 func quickSort(arr []int, left int, right int) []int {
 	if left < right {
 		key := arr[left]
-		low, high := left + 1, right
+		low, high := left+1, right
 
-		for low <= high{
+		for low <= high {
 			for low < high && arr[low] > key && arr[high] < key {
 				arr[low], arr[high] = arr[high], arr[low]
 				low++
@@ -58,9 +58,36 @@ func quickSort1(arr []int, left int, right int) []int {
 	return arr
 }
 
+func quickSort2(arr []int, left, right int) []int {
+	if left < right {
+		low, high := left, right
+		key := arr[left]
+		for low < high {
+			for low < high && arr[high] >= key {
+				high -= 1
+			}
+			if low < high {
+				arr[low] = arr[high]
+				low += 1
+			}
+			for low < high && arr[low] < key {
+				low += 1
+			}
+			if low < high {
+				arr[high] = arr[low]
+			}
+		}
+		arr[low] = key
+		quickSort2(arr, left, low-1)
+		quickSort2(arr, low+1, right)
+	}
+	return arr
+}
+
 func main() {
 	arr := []int{4, 3, 5, 1, 6, 2, 0, 10, 1}
 	fmt.Println(arr)
-	fmt.Println(quickSort(arr, 0, len(arr)-1))
-	fmt.Println(quickSort1(arr, 0, len(arr)-1))
+	//fmt.Println(quickSort(arr, 0, len(arr)-1))
+	//fmt.Println(quickSort1(arr, 0, len(arr)-1))
+	fmt.Println(quickSort2(arr, 0, len(arr)-1))
 }
