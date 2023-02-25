@@ -19,6 +19,7 @@ func distinctSubseqII(s string) int {
 	for _, c := range s {
 		curAns := res
 		res = ((res+curAns)%mod - preCnt[c-'a']%mod + mod) % mod
+		preCnt[c-'a'] = res
 	}
 
 	return res - 1

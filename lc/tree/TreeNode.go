@@ -43,6 +43,31 @@ func CreateTreeNode(arr []int) *TreeNode {
 	return tNodeList[0]
 }
 
+func Ints2Node(arr []int) *TreeNode {
+	root := &TreeNode{Val: arr[0]}
+	queue := []*TreeNode{root}
+	n, i := len(arr), 1
+	for i < len(arr) {
+		node := queue[0]
+		queue = queue[1:]
+
+		if i < n && arr[i] != NilNode {
+			left := &TreeNode{Val: arr[i]}
+			node.Left = left
+			queue = append(queue, left)
+		}
+		i += 1
+
+		if i < n && arr[i] != NilNode {
+			right := &TreeNode{Val: arr[i]}
+			node.Right = right
+			queue = append(queue, right)
+		}
+		i += 1
+	}
+	return root
+}
+
 func LevelOrder(tRoot *TreeNode) {
 	queue := make([]*TreeNode, 0)
 	queue = append(queue, tRoot)
@@ -56,6 +81,27 @@ func LevelOrder(tRoot *TreeNode) {
 			queue = append(queue, first.Right)
 		}
 		queue = queue[1:]
+	}
+	fmt.Println()
+}
+
+func LevelOrder1(tRoot *TreeNode) {
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, tRoot)
+	for len(queue) > 0 {
+		n := len(queue)
+		for i := 0; i < n; i++ {
+			fmt.Print(queue[i].Val, " ")
+			first := queue[i]
+			if first.Left != nil {
+				queue = append(queue, first.Left)
+			}
+			if first.Right != nil {
+				queue = append(queue, first.Right)
+			}
+		}
+		fmt.Println()
+		queue = queue[n:]
 	}
 	fmt.Println()
 }

@@ -24,7 +24,23 @@ func maxProfit4(prices []int) int {
 	return util.MaxInt(s0, s2)
 }
 
+func f309(prices []int) int {
+	f, h, s := 0, -prices[0], 0
+
+	for i := range prices {
+		if i == 0 {
+			continue
+		}
+		f1, h1, s1 := f, h, s
+		f = util.MaxInt(f1, s1)
+		h = util.MaxInt(h1, f1-prices[i])
+		s = util.MaxInt(s1, h1+prices[i])
+	}
+	return util.MaxInt(f, s)
+}
+
 func main() {
 	nums := []int{6, 1, 6, 4, 3, 0, 2}
 	fmt.Println(maxProfit4(nums))
+	fmt.Println(f309(nums))
 }

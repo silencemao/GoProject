@@ -55,6 +55,31 @@ func findBottomLeftValue1(root *tree.TreeNode) int {
 	return leftValue
 }
 
+func help5131(root *tree.TreeNode, deep int) {
+	if root == nil {
+		return
+	}
+
+	if root.Right != nil {
+		help5131(root.Right, deep+1)
+	}
+	if root.Left != nil {
+		help5131(root.Left, deep+1)
+	}
+	if root.Left == nil && root.Right == nil {
+		if deep > maxDep {
+			maxDep = deep
+			leftValue = root.Val
+		}
+	}
+
+}
+
+func findBottomRightValue(root *tree.TreeNode) int {
+	help5131(root, 0)
+	return leftValue
+}
+
 /*
       5
      / \
@@ -67,5 +92,7 @@ func findBottomLeftValue1(root *tree.TreeNode) int {
 */
 func main() {
 	tRoot := tree.CreateTreeNode([]int{5, 4, 8, 11, tree.NilNode, 13, 4, 7, 2, tree.NilNode, tree.NilNode, tree.NilNode, tree.NilNode, tree.NilNode, 1})
-	fmt.Println(findBottomLeftValue1(tRoot))
+	//fmt.Println(findBottomLeftValue1(tRoot))
+	//fmt.Println(findBottomLeftValue(tRoot))
+	fmt.Println(findBottomRightValue(tRoot))
 }

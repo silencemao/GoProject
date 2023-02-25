@@ -113,7 +113,67 @@ func postOrderTraversal(root *tree.TreeNode) []int {
 	return res
 }
 
-func main1() {
+func fPreord(root *tree.TreeNode) []int {
+	var res []int
+	var stack []*tree.TreeNode
+	stack = append(stack, root)
+	for len(stack) > 0 {
+		top := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		res = append(res, top.Val)
+
+		if top.Right != nil {
+			stack = append(stack, top.Right)
+		}
+		if top.Left != nil {
+			stack = append(stack, top.Left)
+		}
+	}
+	return res
+}
+
+func fInord(root *tree.TreeNode) []int {
+	var res []int
+	var stack []*tree.TreeNode
+	for len(stack) > 0 || root != nil {
+		if root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		} else {
+			root = stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			res = append(res, root.Val)
+			root = root.Right
+		}
+	}
+	return res
+}
+
+func fPostOrd(root *tree.TreeNode) []int {
+	var res []int
+	var stack []*tree.TreeNode
+	var pLast *tree.TreeNode
+
+	for len(stack) > 0 || root != nil {
+		if root != nil {
+			stack = append(stack, root)
+			root = root.Left
+		} else {
+			top := stack[len(stack)-1]
+			if top.Right != nil && top.Right != pLast {
+				root = top.Right
+			} else {
+				res = append(res, top.Val)
+				stack = stack[:len(stack)-1]
+				pLast = top
+			}
+		}
+	}
+
+	return res
+}
+
+func main() {
 	root := &tree.TreeNode{
 		Val: 1,
 		Left: &tree.TreeNode{
@@ -135,10 +195,14 @@ func main1() {
 			},
 		},
 	}
-	fmt.Println(levelOrderTraversal(root))
-	fmt.Println(levelOrderTraversal1(root))
-	fmt.Println(preOrderTraversal(root))
-	fmt.Println(inOrderTraversal(root))
+	//fmt.Println(levelOrderTraversal(root))
+	//fmt.Println(levelOrderTraversal1(root))
+	//fmt.Println(preOrderTraversal(root))
+	//fmt.Println(inOrderTraversal(root))
 	fmt.Println(postOrderTraversal(root))
+
+	//fmt.Println(fPreord(root))
+	//fmt.Println(fInord(root))
+	fmt.Println(fPostOrd(root))
 
 }

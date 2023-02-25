@@ -36,6 +36,18 @@ func minCostClimbingStairs(cost []int) int {
 	fmt.Println(dp)
 	return dp[len(dp)-1]
 }
+
+func minCostClimbingStairs1(cost []int) int {
+	dp := make([]int, len(cost))
+	dp[0], dp[1] = cost[0], cost[1]
+	for i := 2; i < len(dp); i++ {
+		dp[i] = cost[i] + util.MinInt(dp[i-1], dp[i-2])
+	}
+	res := util.MinInt(dp[len(dp)-1], dp[len(dp)-2])
+	fmt.Println(dp)
+	return res
+}
+
 func main() {
 	cost := []int{1, 100, 1, 1, 1, 100, 1, 1, 100, 1}
 	fmt.Println(minCostClimbingStairs(cost))
